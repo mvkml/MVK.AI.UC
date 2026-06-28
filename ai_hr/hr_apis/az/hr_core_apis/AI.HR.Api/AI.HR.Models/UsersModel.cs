@@ -15,4 +15,7 @@ public class UsersModel : BaseModel
 
     /// <summary>Use when the response contains multiple users.</summary>
     public List<UserItem> UserItems { get; set; } = new();
+
+    /// <summary>Outgoing response data built by the Business Layer, returned to the Controller.</summary>
+    public UserResponse UserResponse { get; set; } = new();
 }

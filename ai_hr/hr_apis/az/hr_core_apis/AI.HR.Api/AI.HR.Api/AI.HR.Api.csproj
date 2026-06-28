@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AI.HR.EF\AI.HR.EF.csproj" />
+    <ProjectReference Include="..\AI.HR.Models\AI.HR.Models.csproj" />
+    <ProjectReference Include="..\AI.HR.BL\AI.HR.BL.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,6 +17,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.3" />
   </ItemGroup>
 
 </Project>

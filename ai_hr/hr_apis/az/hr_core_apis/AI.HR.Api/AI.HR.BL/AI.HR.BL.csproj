@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AI.HR.Models\AI.HR.Models.csproj" />
+    <ProjectReference Include="..\AI.HR.Repoistories\AI.HR.Repoistories.csproj" />
+  </ItemGroup>
+
 </Project>
