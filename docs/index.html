@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>UC — Your Copilot</title>
+<style>
+  :root {
+    --bg: #0a0e2a;
+    --card: #0d1240;
+    --purple: #7C6FFF;
+    --blue: #4fc3f7;
+    --white: #ffffff;
+    --muted: #a0aec0;
+    --border: rgba(124,111,255,0.15);
+    --gradient: linear-gradient(135deg, #7C6FFF, #4fc3f7);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    font-family: -apple-system, Segoe UI, Roboto, sans-serif;
+    background: var(--bg); color: var(--white); display: flex;
+  }
+
+  /* ── LEFT PANE ── */
+  .sidebar {
+    width: 240px; flex-shrink: 0; min-height: 100vh;
+    background: var(--card); border-right: 1px solid var(--border);
+    padding: 24px 16px;
+  }
+  .sidebar .brand { margin-bottom: 24px; padding: 0 8px; }
+  .sidebar .brand h1 { margin: 0; font-size: 18px; }
+  .sidebar .brand p  { margin: 2px 0 0; font-size: 11px; color: var(--muted); }
+
+  .process-group { margin-bottom: 6px; }
+  .process-head {
+    display: flex; align-items: center; gap: 10px;
+    background: none; border: none; color: var(--white); width: 100%;
+    padding: 10px 12px; border-radius: 10px; font-size: 13px; font-weight: 700;
+    cursor: pointer; text-align: left; transition: all .15s;
+  }
+  .process-head:hover { background: rgba(124,111,255,0.08); }
+  .process-head .caret { margin-left: auto; font-size: 10px; transition: transform .2s; color: var(--muted); }
+  .process-group.open .process-head .caret { transform: rotate(90deg); }
+
+  .process-items { display: none; flex-direction: column; gap: 2px; padding: 4px 0 8px 14px; }
+  .process-group.open .process-items { display: flex; }
+
+  .process-link, .process-link-disabled {
+    display: block; padding: 8px 12px; border-radius: 8px;
+    font-size: 12px; font-weight: 600; text-decoration: none;
+  }
+  .process-link { color: var(--muted); }
+  .process-link:hover { background: rgba(124,111,255,0.12); color: var(--white); }
+  .process-link-disabled { color: rgba(160,174,192,0.4); cursor: default; }
+
+  /* ── MAIN AREA ── */
+  .main { flex: 1; padding: 60px 48px; }
+  .hero h2 { font-size: 28px; margin: 0 0 10px; }
+  .hero p  { color: var(--muted); font-size: 14px; max-width: 560px; line-height: 1.6; }
+  .hero .tag {
+    display: inline-block; background: var(--gradient); color: var(--white);
+    font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px; margin-bottom: 16px;
+  }
+
+  .process-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 18px; margin-top: 36px; max-width: 720px; }
+  .pcard {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+    padding: 18px 20px;
+  }
+  .pcard h3 { margin: 0 0 6px; font-size: 15px; }
+  .pcard .status { font-size: 11px; font-weight: 700; padding: 2px 9px; border-radius: 20px; }
+  .pcard .status.active  { background: rgba(104,211,145,0.15); color: #68d391; }
+  .pcard .status.pending { background: rgba(160,174,192,0.15); color: var(--muted); }
+</style>
+</head>
+<body>
+
+  <!-- ===== LEFT PANE ===== -->
+  <nav class="sidebar">
+    <div class="brand">
+      <h1>🤖 UC</h1>
+      <p>Your Copilot</p>
+    </div>
+
+    <div class="process-group open" id="group-hr">
+      <button class="process-head" onclick="toggleGroup('group-hr')">
+        🧑‍💼 UC HR Process <span class="caret">▶</span>
+      </button>
+      <div class="process-items">
+        <a class="process-link" href="./hr_dev_dashboard/index.html">📊 Dev Dashboard</a>
+      </div>
+    </div>
+
+    <div class="process-group" id="group-ins">
+      <button class="process-head" onclick="toggleGroup('group-ins')">
+        🛡️ UC Insurance Process <span class="caret">▶</span>
+      </button>
+      <div class="process-items">
+        <span class="process-link-disabled">📊 Dev Dashboard (coming soon)</span>
+      </div>
+    </div>
+
+    <div class="process-group" id="group-rnd">
+      <button class="process-head" onclick="toggleGroup('group-rnd')">
+        🧪 UC R&amp;D Process <span class="caret">▶</span>
+      </button>
+      <div class="process-items">
+        <span class="process-link-disabled">📊 Dev Dashboard (coming soon)</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== MAIN AREA ===== -->
+  <main class="main">
+    <div class="hero">
+      <span class="tag">YOUR COPILOT</span>
+      <h2>UC — AI Co-Pilot Suite</h2>
+      <p>
+        A family of AI co-pilots, each focused on one business process — HR, Insurance, and R&amp;D —
+        sharing a common product approach. Use the left panel to open a process and view its
+        development progress.
+      </p>
+    </div>
+
+    <div class="process-cards">
+      <div class="pcard">
+        <h3>🧑‍💼 HR</h3>
+        <span class="status active">Active Development</span>
+      </div>
+      <div class="pcard">
+        <h3>🛡️ Insurance</h3>
+        <span class="status pending">Not Started</span>
+      </div>
+      <div class="pcard">
+        <h3>🧪 R&amp;D</h3>
+        <span class="status pending">Not Started</span>
+      </div>
+    </div>
+  </main>
+
+<script>
+  function toggleGroup(id) {
+    document.getElementById(id).classList.toggle('open');
+  }
+</script>
+
+</body>
+</html>
