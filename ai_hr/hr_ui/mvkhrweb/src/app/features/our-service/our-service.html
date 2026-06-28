@@ -1,0 +1,83 @@
+<!-- Our Service Page — UC Your Copilot -->
+<div class="service-wrapper">
+
+  <!-- NAVBAR -->
+  <app-navbar></app-navbar>
+
+  <!-- 1. HERO -->
+  <section class="service-hero">
+    <div class="hero-badge">Our Services</div>
+    <h1>Everything Your HR Team <span class="gradient-text">Needs</span></h1>
+    <p>UC delivers a complete suite of AI-powered HR services — from intelligent
+      document search to deep analytics — all in one unified platform.</p>
+    <button class="btn-start">Get Started Free</button>
+  </section>
+
+  <!-- 2. SERVICES GRID -->
+  <section class="services-section">
+    <div class="section-container">
+      <div class="section-label">What We Offer</div>
+      <h2>Our <span class="gradient-text">Core Services</span></h2>
+      <p class="section-desc">Powerful AI-driven HR services built for modern organizations</p>
+      <div class="services-grid">
+        @for (service of services; track service.title) {
+          <div class="service-card">
+            <div class="service-icon">{{ service.icon }}</div>
+            <h4>{{ service.title }}</h4>
+            <p>{{ service.desc }}</p>
+            <span class="learn-more">Learn more →</span>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. HOW IT WORKS -->
+  <section class="how-it-works">
+    <div class="section-container">
+      <div class="section-label">How It Works</div>
+      <h2>Simple <span class="gradient-text">3-Step</span> Process</h2>
+      <p class="section-desc">Get started with UC in minutes</p>
+      <div class="steps-row">
+        @for (step of steps; track step.step) {
+          <div class="step-card">
+            <div class="step-number gradient-text">{{ step.step }}</div>
+            <h4>{{ step.title }}</h4>
+            <p>{{ step.desc }}</p>
+          </div>
+          @if (!$last) {
+            <div class="step-arrow">→</div>
+          }
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. WHY CHOOSE UC -->
+  <section class="why-uc">
+    <div class="section-container">
+      <div class="section-label">Why Choose UC</div>
+      <h2>Built for <span class="gradient-text">Performance</span></h2>
+      <div class="benefits-grid">
+        @for (benefit of benefits; track benefit.title) {
+          <div class="benefit-card">
+            <div class="benefit-icon">{{ benefit.icon }}</div>
+            <h4>{{ benefit.title }}</h4>
+            <p>{{ benefit.desc }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. FOOTER CTA -->
+  <section class="footer-cta">
+    <h2>Ready to <span class="gradient-text">Transform</span> Your HR?</h2>
+    <p>Start using UC today — your intelligent HR partner.</p>
+    <div class="cta-actions">
+      <button class="btn-primary">Get Started Free</button>
+      <button class="btn-secondary">Schedule a Demo</button>
+    </div>
+  </section>
+
+</div>

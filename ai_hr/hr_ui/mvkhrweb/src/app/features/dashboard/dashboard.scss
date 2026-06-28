@@ -1,0 +1,163 @@
+$bg:       #0a0e2a;
+$sidebar:  #080b1f;
+$purple:   #7C6FFF;
+$white:    #ffffff;
+$muted:    #a0aec0;
+$border:   rgba(124,111,255,0.15);
+$gradient: linear-gradient(135deg, #7C6FFF, #4fc3f7);
+$ease:     cubic-bezier(0.4, 0, 0.2, 1);
+
+$sidebar-w:  260px;
+$collapsed-w: 64px;
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+// ===== SHELL =====
+.uc-shell {
+  display: flex; height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  color: $white; background: $bg; overflow: hidden;
+}
+
+// ===== SIDEBAR =====
+.sidebar {
+  width: $sidebar-w; min-width: $sidebar-w;
+  background: $sidebar; border-right: 1px solid $border;
+  display: flex; flex-direction: column;
+  padding: 20px 12px; gap: 6px; overflow: hidden;
+  transition: width 0.3s $ease, min-width 0.3s $ease, padding 0.3s $ease;
+
+  &.collapsed {
+    width: $collapsed-w; min-width: $collapsed-w; padding: 20px 8px;
+    .logo-text, .label, .nav-label, .user-info, .btn-logout,
+    .search-input, .section-label { display: none; }
+    .sidebar-search  { justify-content: center; padding: 8px; }
+    .btn-new-session { justify-content: center; padding: 10px; }
+    .sidebar-user    { justify-content: center; }
+    .nav-item        { justify-content: center; padding: 10px 0; }
+    .btn-toggle      { margin-left: 0; }
+  }
+
+  .sidebar-logo {
+    display: flex; align-items: center; gap: 10px;
+    padding: 4px 0 16px; border-bottom: 1px solid $border;
+    margin-bottom: 8px; overflow: hidden;
+
+    .logo-text {
+      flex: 1; display: flex; flex-direction: column; line-height: 1.1;
+      overflow: hidden; white-space: nowrap;
+      .logo-name { font-size: 15px; font-weight: 700; }
+      .logo-sub  { font-size: 10px; color: $purple; }
+    }
+
+    .btn-toggle {
+      margin-left: auto; flex-shrink: 0;
+      background: rgba(124,111,255,0.1); border: 1px solid $border;
+      color: $purple; width: 26px; height: 26px; border-radius: 6px;
+      cursor: pointer; font-size: 11px;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+      &:hover { background: rgba(124,111,255,0.25); border-color: $purple; }
+    }
+  }
+
+  .btn-new-session {
+    display: flex; align-items: center; gap: 8px; width: 100%;
+    background: rgba(124,111,255,0.12); border: 1px solid $border;
+    color: $white; padding: 10px 14px; border-radius: 10px;
+    font-size: 13px; font-weight: 600; cursor: pointer;
+    transition: all 0.2s; margin-bottom: 6px;
+    white-space: nowrap; overflow: hidden; text-decoration: none;
+    .icon { flex-shrink: 0; }
+    &:hover { background: rgba(124,111,255,0.22); border-color: $purple; }
+  }
+
+  .sidebar-search {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.04); border: 1px solid $border;
+    border-radius: 8px; padding: 8px 12px;
+    margin-bottom: 8px; overflow: hidden;
+    .search-icon  { font-size: 13px; flex-shrink: 0; }
+    .search-input {
+      background: none; border: none; outline: none;
+      color: $white; font-size: 13px; width: 100%;
+      &::placeholder { color: rgba(160,174,192,0.5); }
+    }
+  }
+
+  .sidebar-section {
+    margin-top: 6px; overflow: hidden;
+    .section-label {
+      font-size: 10px; font-weight: 700; color: $muted;
+      text-transform: uppercase; letter-spacing: 0.8px;
+      padding: 4px 8px 6px; white-space: nowrap;
+    }
+    .nav-list { list-style: none; }
+    .nav-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 10px; border-radius: 8px;
+      font-size: 13px; color: $muted; cursor: pointer;
+      transition: all 0.2s; white-space: nowrap; overflow: hidden;
+      .nav-icon { font-size: 16px; flex-shrink: 0; }
+      .nav-label { overflow: hidden; text-overflow: ellipsis; }
+      &:hover  { background: rgba(124,111,255,0.1); color: $white; }
+      &.active { background: rgba(124,111,255,0.15); color: $white;
+                 border-left: 3px solid $purple; padding-left: 7px; }
+    }
+    &.recents {
+      flex: 1; overflow-y: auto;
+      &::-webkit-scrollbar { width: 3px; }
+      &::-webkit-scrollbar-thumb { background: rgba(124,111,255,0.2); border-radius: 3px; }
+      .session-label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 160px; }
+    }
+  }
+
+  .sidebar-user {
+    margin-top: auto; padding-top: 12px;
+    border-top: 1px solid $border;
+    display: flex; align-items: center; gap: 10px; overflow: hidden;
+    .user-avatar {
+      width: 34px; height: 34px; flex-shrink: 0; border-radius: 50%;
+      background: $gradient;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700;
+    }
+    .user-info {
+      flex: 1; display: flex; flex-direction: column;
+      line-height: 1.3; overflow: hidden; white-space: nowrap;
+      .user-name { font-size: 13px; font-weight: 600; }
+      .user-role { font-size: 11px; color: $muted; }
+    }
+    .btn-logout {
+      background: none; border: none; cursor: pointer;
+      font-size: 16px; opacity: 0.5; color: $white; flex-shrink: 0;
+      transition: all 0.2s;
+      &:hover { opacity: 1; color: #fc8181; }
+    }
+  }
+}
+
+// ===== MAIN =====
+.main-area {
+  flex: 1; display: flex; flex-direction: column; overflow: hidden;
+
+  .topbar {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 28px; flex-shrink: 0;
+    border-bottom: 1px solid $border;
+    background: rgba(10,14,42,0.95); backdrop-filter: blur(10px);
+
+    .topbar-title { font-size: 15px; font-weight: 600; color: $muted; flex: 1; }
+    .topbar-actions { display: flex; gap: 8px; }
+    .icon-btn {
+      background: rgba(255,255,255,0.05); border: 1px solid $border;
+      color: $white; width: 36px; height: 36px; border-radius: 8px;
+      cursor: pointer; font-size: 15px; transition: all 0.2s;
+      display: flex; align-items: center; justify-content: center;
+      &:hover    { background: rgba(124,111,255,0.15); border-color: $purple; }
+      &.hamburger { font-size: 18px; }
+    }
+  }
+
+  .page-content { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+}

@@ -1,0 +1,277 @@
+$bg-dark:  #0a0e2a; $bg-card: #0d1240; $bg-right: #080b1f;
+$purple: #7C6FFF; $blue: #4fc3f7; $white: #ffffff; $muted: #a0aec0;
+$gradient: linear-gradient(135deg, #7C6FFF, #4fc3f7);
+$error: #fc8181; $success: #68d391;
+
+* { box-sizing: border-box; }
+
+.signup-wrapper {
+  display: flex; min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif; color: $white; background: $bg-dark;
+
+  .gradient-text {
+    background: $gradient; -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text;
+  }
+}
+
+// ========== LEFT ==========
+.signup-left {
+  flex: 0 0 540px; display: flex; flex-direction: column;
+  align-items: center; padding: 36px 40px;
+  background: $bg-dark; border-right: 1px solid rgba(124,111,255,0.15);
+
+  .logo {
+    width: 100%; margin-bottom: 28px;
+    .logo-link {
+      display: flex; align-items: center; gap: 10px; text-decoration: none;
+      .logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+      .logo-name { font-size: 16px; font-weight: 700; color: $white; }
+      .logo-sub  { font-size: 11px; color: $purple; }
+    }
+  }
+
+  .signup-card {
+    width: 100%; max-width: 440px; background: $bg-card;
+    border: 1px solid rgba(124,111,255,0.2); border-radius: 20px;
+    padding: 36px 32px; box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+
+    .card-header {
+      margin-bottom: 24px;
+      h1 { font-size: 24px; font-weight: 800; margin-bottom: 6px; }
+      p  { font-size: 14px; color: $muted; }
+    }
+
+    // Step Indicator
+    .step-indicator {
+      display: flex; align-items: center; margin-bottom: 24px;
+
+      .step-item {
+        display: flex; flex-direction: column; align-items: center; gap: 4px;
+
+        .step-dot {
+          width: 32px; height: 32px; border-radius: 50%;
+          display: flex; align-items: center; justify-content: center;
+          font-size: 13px; font-weight: 700;
+          background: rgba(124,111,255,0.1);
+          border: 2px solid rgba(124,111,255,0.3);
+          color: $muted; transition: all 0.3s;
+        }
+
+        span { font-size: 11px; color: $muted; }
+
+        &.active .step-dot { border-color: $purple; color: $purple; background: rgba(124,111,255,0.15); }
+        &.done  .step-dot  { background: $purple; border-color: $purple; color: $white; }
+      }
+
+      .step-line {
+        flex: 1; height: 2px; background: rgba(124,111,255,0.2);
+        margin: 0 10px; margin-bottom: 20px; transition: background 0.3s;
+        &.done { background: $purple; }
+      }
+    }
+
+    // Messages
+    .error-msg {
+      background: rgba(252,129,129,0.1); border: 1px solid rgba(252,129,129,0.4);
+      color: $error; padding: 12px 16px; border-radius: 10px;
+      font-size: 13px; margin-bottom: 18px; animation: fadeIn 0.3s ease;
+    }
+    .success-msg {
+      background: rgba(104,211,145,0.1); border: 1px solid rgba(104,211,145,0.4);
+      color: $success; padding: 16px; border-radius: 10px; font-size: 14px;
+      font-weight: 600; margin-bottom: 18px; text-align: center;
+      animation: fadeIn 0.3s ease;
+    }
+
+    // Form
+    .form-step {
+      .form-group {
+        margin-bottom: 16px;
+
+        label {
+          display: block; font-size: 12px; font-weight: 600; color: $muted;
+          margin-bottom: 7px; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+
+        .input-wrap {
+          position: relative; display: flex; align-items: center;
+
+          .input-icon { position: absolute; left: 13px; font-size: 15px; z-index: 1; }
+
+          input, select {
+            width: 100%; background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(124,111,255,0.25); border-radius: 10px;
+            padding: 12px 14px 12px 40px; color: $white; font-size: 14px;
+            font-family: 'Segoe UI', sans-serif; outline: none; transition: all 0.3s;
+
+            &::placeholder { color: rgba(160,174,192,0.5); }
+            &:focus { border-color: $purple; background: rgba(124,111,255,0.08);
+              box-shadow: 0 0 0 3px rgba(124,111,255,0.15); }
+
+            option { background: $bg-card; color: $white; }
+          }
+
+          &.select-wrap select { cursor: pointer; appearance: none; }
+
+          .toggle-pw {
+            position: absolute; right: 12px; background: none; border: none;
+            cursor: pointer; font-size: 16px; opacity: 0.7;
+            &:hover { opacity: 1; }
+          }
+        }
+
+        .pw-strength {
+          display: flex; align-items: center; gap: 10px; margin-top: 8px;
+
+          .pw-bar {
+            flex: 1; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px;
+            overflow: hidden;
+
+            .pw-fill { height: 100%; border-radius: 2px; transition: all 0.4s; }
+          }
+
+          span { font-size: 12px; font-weight: 600; min-width: 50px; }
+        }
+      }
+
+      .terms {
+        font-size: 12px; color: $muted; margin-bottom: 20px; line-height: 1.6;
+        a { color: $purple; text-decoration: none; &:hover { text-decoration: underline; } }
+      }
+
+      .btn-next {
+        width: 100%; background: $gradient; border: none; color: $white;
+        padding: 13px; border-radius: 50px; font-size: 15px; font-weight: 700;
+        cursor: pointer; transition: all 0.3s;
+        box-shadow: 0 4px 20px rgba(124,111,255,0.4);
+        &:hover { transform: translateY(-2px); }
+      }
+
+      .btn-row {
+        display: flex; gap: 12px;
+
+        .btn-back {
+          flex: 0 0 100px; background: transparent;
+          border: 1px solid rgba(255,255,255,0.2);
+          color: $muted; padding: 13px; border-radius: 50px;
+          font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s;
+          &:hover { border-color: $purple; color: $purple; }
+        }
+
+        .btn-signup {
+          flex: 1; background: $gradient; border: none; color: $white;
+          padding: 13px; border-radius: 50px; font-size: 15px; font-weight: 700;
+          cursor: pointer; transition: all 0.3s; display: flex;
+          align-items: center; justify-content: center; gap: 8px;
+          box-shadow: 0 4px 20px rgba(124,111,255,0.4);
+          &:hover { transform: translateY(-2px); }
+          &.loading { opacity: 0.8; cursor: not-allowed; }
+
+          .spinner {
+            width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: $white; border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+          }
+        }
+      }
+    }
+
+    // Divider
+    .divider {
+      display: flex; align-items: center; gap: 12px; margin: 20px 0;
+      &::before, &::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.1); }
+      span { font-size: 12px; color: $muted; white-space: nowrap; }
+    }
+
+    // Social
+    .social-btns {
+      display: flex; gap: 10px; margin-bottom: 20px;
+
+      .social-btn {
+        flex: 1; display: flex; align-items: center; justify-content: center;
+        gap: 8px; padding: 11px; border-radius: 10px;
+        font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s;
+
+        &.github {
+          background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); color: $white;
+          &:hover { background: rgba(255,255,255,0.12); transform: translateY(-2px); }
+        }
+        &.linkedin {
+          background: rgba(10,102,194,0.15); border: 1px solid rgba(10,102,194,0.4); color: $blue;
+          &:hover { background: rgba(10,102,194,0.3); transform: translateY(-2px); }
+        }
+      }
+    }
+
+    .login-link {
+      text-align: center; font-size: 13px; color: $muted;
+      a { color: $purple; font-weight: 700; text-decoration: none; &:hover { text-decoration: underline; } }
+    }
+  }
+
+  .back-home {
+    margin-top: 24px; font-size: 13px; color: $muted; text-decoration: none;
+    transition: color 0.2s; &:hover { color: $purple; }
+  }
+}
+
+// ========== RIGHT ==========
+.signup-right {
+  flex: 1; background: $bg-right; display: flex; align-items: center;
+  justify-content: center; padding: 60px; position: relative; overflow: hidden;
+
+  &::before {
+    content: ''; position: absolute; width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(124,111,255,0.12), transparent 70%);
+    top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none;
+  }
+
+  .right-content {
+    max-width: 460px; text-align: center; position: relative; z-index: 1;
+
+    .robot-wrap {
+      position: relative; display: inline-block; margin-bottom: 28px;
+
+      .glow-ring {
+        position: absolute; width: 140px; height: 140px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(124,111,255,0.3), transparent 70%);
+        top: 50%; left: 50%; transform: translate(-50%, -50%);
+        animation: pulse 2.5s ease-in-out infinite;
+      }
+
+      .robot-emoji { font-size: 90px; display: block; animation: float 3s ease-in-out infinite; position: relative; z-index: 1; }
+    }
+
+    h2 { font-size: 34px; font-weight: 900; line-height: 1.2; margin-bottom: 14px; }
+    p  { font-size: 14px; color: $muted; line-height: 1.8; margin-bottom: 32px; }
+
+    .stats-row {
+      display: flex; justify-content: center; gap: 32px; margin-bottom: 32px;
+
+      .stat {
+        display: flex; flex-direction: column; align-items: center; gap: 4px;
+        .stat-val   { font-size: 32px; font-weight: 900; }
+        .stat-label { font-size: 12px; color: $muted; }
+      }
+    }
+
+    .perks {
+      display: flex; flex-direction: column; gap: 10px; text-align: left;
+
+      .perk {
+        background: rgba(124,111,255,0.08); border: 1px solid rgba(124,111,255,0.15);
+        border-radius: 10px; padding: 12px 16px; font-size: 13px; font-weight: 500;
+        transition: all 0.3s;
+        &:hover { border-color: $purple; background: rgba(124,111,255,0.15); }
+      }
+    }
+  }
+}
+
+// ========== ANIMATIONS ==========
+@keyframes float  { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+@keyframes pulse  { 0%,100% { transform: translate(-50%,-50%) scale(1); opacity: 0.5; }
+                    50%      { transform: translate(-50%,-50%) scale(1.2); opacity: 0.9; } }
+@keyframes spin   { to { transform: rotate(360deg); } }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }

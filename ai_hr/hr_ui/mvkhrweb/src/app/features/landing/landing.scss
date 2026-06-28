@@ -1,0 +1,441 @@
+// =============================
+// MVK HR Landing Page Styles
+// =============================
+
+$bg-dark: #0a0e2a;
+$bg-card: #0d1240;
+$purple: #7C6FFF;
+$blue: #4fc3f7;
+$white: #ffffff;
+$text-muted: #a0aec0;
+$gradient: linear-gradient(135deg, #7C6FFF, #4fc3f7);
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+.landing-wrapper {
+  background: $bg-dark;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  color: $white;
+  overflow-x: hidden;
+}
+
+// ========== NAVBAR ==========
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 60px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10, 14, 42, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(124, 111, 255, 0.15);
+
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+
+      .brand-name {
+        font-size: 16px;
+        font-weight: 700;
+        color: $white;
+      }
+      .brand-sub {
+        font-size: 11px;
+        color: $purple;
+      }
+    }
+  }
+
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 32px;
+
+    a {
+      text-decoration: none;
+      color: $text-muted;
+      font-size: 14px;
+      transition: color 0.2s;
+
+      &:hover, &.active {
+        color: $white;
+      }
+      &.active {
+        border-bottom: 2px solid $purple;
+        padding-bottom: 2px;
+      }
+    }
+  }
+
+  .nav-actions {
+    display: flex;
+    gap: 12px;
+
+    .btn-login {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.3);
+      color: $white;
+      padding: 8px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s;
+      &:hover { border-color: $purple; color: $purple; }
+    }
+
+    .btn-signup {
+      background: $purple;
+      border: none;
+      color: $white;
+      padding: 8px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.2s;
+      &:hover { background: #6258e0; }
+    }
+  }
+}
+
+// ========== HERO ==========
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 80px 60px 60px;
+  min-height: calc(100vh - 140px);
+
+  // ---- LEFT: Robot ----
+  .hero-left {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    .robot-container {
+      position: relative;
+      width: 380px;
+      height: 380px;
+    }
+
+    .laptop {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 280px;
+
+      .laptop-screen {
+        background: linear-gradient(145deg, #1a1f5e, #0d1240);
+        border: 2px solid rgba(124, 111, 255, 0.4);
+        border-radius: 12px 12px 0 0;
+        height: 180px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding-bottom: 10px;
+        box-shadow: 0 0 30px rgba(124, 111, 255, 0.2);
+      }
+
+      .laptop-base {
+        background: linear-gradient(to bottom, #1e2460, #141840);
+        height: 16px;
+        border-radius: 0 0 8px 8px;
+        border: 1px solid rgba(124, 111, 255, 0.3);
+        border-top: none;
+
+        &::after {
+          content: '';
+          display: block;
+          width: 60px;
+          height: 6px;
+          background: rgba(124, 111, 255, 0.3);
+          border-radius: 3px;
+          margin: 5px auto;
+        }
+      }
+    }
+
+    // ---- Robot ----
+    .robot {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .robot-antenna {
+        width: 4px;
+        height: 20px;
+        background: $purple;
+        border-radius: 2px;
+        margin-bottom: 2px;
+
+        &::after {
+          content: '';
+          display: block;
+          width: 10px;
+          height: 10px;
+          background: $blue;
+          border-radius: 50%;
+          margin: -5px auto 0;
+          box-shadow: 0 0 8px $blue;
+          animation: blink 1.5s infinite;
+        }
+      }
+
+      .robot-head {
+        width: 70px;
+        height: 55px;
+        background: linear-gradient(145deg, #d0d8f0, #a8b4d0);
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        position: relative;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+
+        .robot-eye {
+          width: 14px;
+          height: 14px;
+          background: $blue;
+          border-radius: 50%;
+          box-shadow: 0 0 8px $blue;
+          animation: blink 2s infinite;
+        }
+      }
+
+      .robot-body {
+        width: 80px;
+        height: 70px;
+        background: linear-gradient(145deg, #c8d0e8, #98a4c0);
+        border-radius: 10px;
+        margin-top: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+
+        .robot-badge {
+          background: $purple;
+          color: $white;
+          font-size: 11px;
+          font-weight: 800;
+          padding: 4px 8px;
+          border-radius: 20px;
+          letter-spacing: 1px;
+        }
+      }
+
+      .robot-arm {
+        position: absolute;
+        width: 14px;
+        height: 45px;
+        background: linear-gradient(145deg, #c8d0e8, #98a4c0);
+        border-radius: 7px;
+        top: 60px;
+
+        &.left-arm { left: -18px; transform: rotate(15deg); }
+        &.right-arm { right: -18px; transform: rotate(-15deg); }
+        &.wave { animation: wave 1s ease-in-out infinite alternate; transform-origin: top center; }
+      }
+    }
+
+    // ---- Speech & Chat Bubbles ----
+    .speech-bubble {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      background: $white;
+      color: #333;
+      font-size: 22px;
+      font-weight: 800;
+      padding: 12px 18px;
+      border-radius: 16px 16px 4px 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      animation: float 2s ease-in-out infinite;
+    }
+
+    .chat-bubble {
+      position: absolute;
+      background: rgba(124, 111, 255, 0.2);
+      border: 1px solid rgba(124, 111, 255, 0.4);
+      border-radius: 12px;
+      padding: 10px 14px;
+
+      &.left-chat {
+        left: 10px;
+        top: 120px;
+        display: flex;
+        gap: 5px;
+
+        span {
+          width: 8px;
+          height: 8px;
+          background: $purple;
+          border-radius: 50%;
+          animation: dotBounce 1.2s infinite;
+
+          &:nth-child(2) { animation-delay: 0.2s; }
+          &:nth-child(3) { animation-delay: 0.4s; }
+        }
+      }
+
+      &.right-chat {
+        right: 10px;
+        bottom: 120px;
+
+        .chat-line {
+          height: 6px;
+          background: rgba(255,255,255,0.3);
+          border-radius: 3px;
+          margin: 4px 0;
+          width: 80px;
+
+          &.short { width: 50px; }
+        }
+      }
+    }
+  }
+
+  // ---- RIGHT: Content ----
+  .hero-right {
+    flex: 1;
+    padding-left: 60px;
+
+    .hero-title {
+      font-size: 52px;
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+
+      .gradient-text {
+        background: $gradient;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+    }
+
+    .hero-desc {
+      font-size: 15px;
+      color: $text-muted;
+      line-height: 1.8;
+      margin-bottom: 28px;
+      max-width: 480px;
+    }
+
+    .hero-quote {
+      font-size: 16px;
+      font-style: italic;
+      color: $white;
+      margin-bottom: 36px;
+      line-height: 1.7;
+      position: relative;
+      padding-left: 20px;
+
+      .quote-open {
+        font-size: 28px;
+        color: $purple;
+        position: absolute;
+        left: 0;
+        top: -4px;
+      }
+      .quote-close {
+        font-size: 28px;
+        color: $purple;
+        margin-left: 6px;
+      }
+    }
+
+    .btn-ask {
+      background: $gradient;
+      border: none;
+      color: $white;
+      padding: 16px 40px;
+      border-radius: 50px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 25px rgba(124, 111, 255, 0.4);
+      transition: all 0.3s;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 35px rgba(124, 111, 255, 0.6);
+      }
+    }
+  }
+}
+
+// ========== FEATURES STRIP ==========
+.features {
+  display: flex;
+  justify-content: space-around;
+  padding: 40px 60px;
+  border-top: 1px solid rgba(124, 111, 255, 0.15);
+  background: rgba(13, 18, 64, 0.5);
+
+  .feature-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    max-width: 200px;
+
+    .feature-icon {
+      font-size: 28px;
+      margin-bottom: 4px;
+    }
+
+    h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: $white;
+    }
+
+    p {
+      font-size: 13px;
+      color: $text-muted;
+      line-height: 1.5;
+    }
+  }
+}
+
+// ========== ANIMATIONS ==========
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes wave {
+  from { transform: rotate(-15deg); }
+  to { transform: rotate(15deg); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes dotBounce {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50% { transform: translateY(-4px); opacity: 1; }
+}

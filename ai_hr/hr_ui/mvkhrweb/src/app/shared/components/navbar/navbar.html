@@ -1,0 +1,29 @@
+<nav class="navbar">
+  <div class="navbar-brand">
+    <div class="logo-icon">
+      <svg viewBox="0 0 40 40" fill="none" width="36" height="36">
+        <rect x="5" y="5" width="13" height="13" rx="2" fill="#7C6FFF"/>
+        <rect x="22" y="5" width="13" height="13" rx="2" fill="#7C6FFF" opacity="0.6"/>
+        <rect x="5" y="22" width="13" height="13" rx="2" fill="#7C6FFF" opacity="0.6"/>
+        <rect x="22" y="22" width="13" height="13" rx="2" fill="#7C6FFF"/>
+      </svg>
+    </div>
+    <div class="brand-text">
+      <span class="brand-name">UC</span>
+      <span class="brand-sub">Your Copilot</span>
+    </div>
+  </div>
+
+  <ul class="nav-links">
+    <li><a routerLink="/"          routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Home</a></li>
+    <li><a routerLink="/about"     routerLinkActive="active">About</a></li>
+    <li><a routerLink="/services"  routerLinkActive="active">Our Service</a></li>
+    <li><a routerLink="/portfolio" routerLinkActive="active">Portfolio</a></li>
+    <li><a routerLink="/contact"   routerLinkActive="active">Contact Us</a></li>
+  </ul>
+
+  <div class="nav-actions">
+    <a routerLink="/login" class="btn-login">Log in</a>
+    <a routerLink="/signup" class="btn-signup">Sign Up</a>
+  </div>
+</nav>

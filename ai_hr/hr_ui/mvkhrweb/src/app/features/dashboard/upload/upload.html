@@ -1,0 +1,140 @@
+<div class="upload-page">
+
+  <!-- Stats Row -->
+  <div class="stats-row">
+    @for (s of stats; track s.label) {
+      <div class="stat-card">
+        <span class="stat-icon">{{ s.icon }}</span>
+        <div class="stat-info">
+          <span class="stat-val" [style.color]="s.color">{{ s.value }}</span>
+          <span class="stat-label">{{ s.label }}</span>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Main Upload Area -->
+  <div class="upload-body">
+
+    <!-- Left: Drop zone + file list -->
+    <div class="upload-main">
+
+      <!-- Doc Type Selector -->
+      <div class="doc-type-bar">
+        <span class="bar-label">📂 Document Type:</span>
+        <div class="type-chips">
+          @for (t of docTypes; track t) {
+            <button class="chip" [class.active]="selectedDocType === t"
+                    (click)="selectedDocType = t">{{ t }}</button>
+          }
+        </div>
+      </div>
+
+      <!-- Drop Zone -->
+      <div class="drop-zone" [class.dragging]="isDragging"
+           (dragover)="onDragOver($event)"
+           (dragleave)="onDragLeave()"
+           (drop)="onDrop($event)">
+        <div class="drop-inner">
+          <div class="drop-icon">{{ isDragging ? '📂' : '☁️' }}</div>
+          <h3>{{ isDragging ? 'Release to upload' : 'Drag & drop files here' }}</h3>
+          <p>PDFs, Word docs, TXT, Images</p>
+          <button class="btn-browse" (click)="openFileDialog()">Browse Files</button>
+          <input #fileInput type="file" multiple
+                 accept=".pdf,.doc,.docx,.txt,.png,.jpg"
+                 (change)="onFileSelect($event)" hidden />
+        </div>
+      </div>
+
+      <!-- File List -->
+      @if (files.length > 0) {
+        <div class="file-list">
+          <div class="file-list-header">
+            <span>File</span>
+            <span>Type</span>
+            <span>Size</span>
+            <span>Status</span>
+            <span></span>
+          </div>
+
+          @for (file of files; track file.id) {
+            <div class="file-row" [class.done]="file.status === 'done'"
+                                  [class.error]="file.status === 'error'">
+
+              <!-- Icon + Name -->
+              <div class="file-name">
+                <span class="file-ext-icon">{{ getExtIcon(file.ext) }}</span>
+                <div class="file-meta">
+                  <span class="fname">{{ file.name }}</span>
+                  @if (file.status === 'uploading') {
+                    <div class="progress-bar">
+                      <div class="progress-fill" [style.width.%]="file.progress"></div>
+                    </div>
+                  }
+                </div>
+              </div>
+
+              <!-- Doc Type -->
+              <select [(ngModel)]="file.docType" class="type-select"
+                      [disabled]="file.status === 'uploading' || file.status === 'done'">
+                @for (t of docTypes; track t) {
+                  <option [value]="t">{{ t }}</option>
+                }
+              </select>
+
+              <!-- Size -->
+              <span class="file-size">{{ file.size }}</span>
+
+              <!-- Status -->
+              <span class="status-badge" [class]="file.status">
+                {{ getStatusBadge(file.status) }}
+              </span>
+
+              <!-- Actions -->
+              <div class="file-actions">
+                @if (file.status === 'error') {
+                  <button class="btn-icon retry" (click)="retryFile(file)" title="Retry">🔄</button>
+                }
+                <button class="btn-icon remove" (click)="removeFile(file.id)" title="Remove">✕</button>
+              </div>
+
+            </div>
+          }
+        </div>
+      }
+
+      <!-- Empty file list state -->
+      @if (files.length === 0) {
+        <div class="empty-state">
+          <span>📭</span>
+          <p>No files selected yet. Drag & drop or browse to get started.</p>
+        </div>
+      }
+
+    </div>
+
+    <!-- Right: Tips panel -->
+    <div class="tips-panel">
+      <h4>💡 Upload Tips</h4>
+      <ul>
+        <li>✅ Supported: PDF, DOC, DOCX, TXT</li>
+        <li>✅ Max file size: 10 MB per file</li>
+        <li>✅ Batch upload: drop multiple files at once</li>
+        <li>✅ AI will auto-index after upload</li>
+        <li>⚠️ Avoid password-protected files</li>
+      </ul>
+
+      <div class="tips-divider"></div>
+
+      <h4>🤖 What UC Does</h4>
+      <div class="ai-steps">
+        <div class="ai-step"><span class="step-num">1</span> Extracts text & metadata</div>
+        <div class="ai-step"><span class="step-num">2</span> Indexes into Azure AI Search</div>
+        <div class="ai-step"><span class="step-num">3</span> Makes it searchable via chat</div>
+        <div class="ai-step"><span class="step-num">4</span> Stores securely in Azure Storage</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

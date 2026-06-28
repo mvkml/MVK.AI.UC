@@ -1,0 +1,137 @@
+{
+  "hrui/mvkhrweb/.vscode/extensions.json": {
+    "mtime": 1777810191.3277686,
+    "ast_hash": "66fd9e60d4633b6099fe02e06a7075ea",
+    "semantic_hash": "66fd9e60d4633b6099fe02e06a7075ea"
+  },
+  "hrui/mvkhrweb/.vscode/launch.json": {
+    "mtime": 1777810191.328768,
+    "ast_hash": "430386a2f03e9d559664c196344c121b",
+    "semantic_hash": "430386a2f03e9d559664c196344c121b"
+  },
+  "hrui/mvkhrweb/.vscode/tasks.json": {
+    "mtime": 1777810191.3313296,
+    "ast_hash": "cb7ed9a56930402d9059ea5a9773d60e",
+    "semantic_hash": "cb7ed9a56930402d9059ea5a9773d60e"
+  },
+  "hrui/mvkhrweb/angular.json": {
+    "mtime": 1777815579.440404,
+    "ast_hash": "6266c234945309110d638f08f46c036a",
+    "semantic_hash": "6266c234945309110d638f08f46c036a"
+  },
+  "hrui/mvkhrweb/package.json": {
+    "mtime": 1777810191.3207743,
+    "ast_hash": "dd173445980544e4e4c9466a9800facf",
+    "semantic_hash": "dd173445980544e4e4c9466a9800facf"
+  },
+  "hrui/mvkhrweb/src/app/app.config.server.ts": {
+    "mtime": 1777810191.3569045,
+    "ast_hash": "f7b5c12b0dacd6692ee6042eb44f788b",
+    "semantic_hash": "f7b5c12b0dacd6692ee6042eb44f788b"
+  },
+  "hrui/mvkhrweb/src/app/app.config.ts": {
+    "mtime": 1777810191.3549044,
+    "ast_hash": "0437cd15545b6a536bb5ac6345331f18",
+    "semantic_hash": "0437cd15545b6a536bb5ac6345331f18"
+  },
+  "hrui/mvkhrweb/src/app/app.routes.server.ts": {
+    "mtime": 1777810191.3579042,
+    "ast_hash": "af9fd0d32a5a3ba2298a6e1f23a0b06e",
+    "semantic_hash": "af9fd0d32a5a3ba2298a6e1f23a0b06e"
+  },
+  "hrui/mvkhrweb/src/app/app.routes.ts": {
+    "mtime": 1777836306.053963,
+    "ast_hash": "65ae660864a1e5e916346c65dc67298a",
+    "semantic_hash": "65ae660864a1e5e916346c65dc67298a"
+  },
+  "hrui/mvkhrweb/src/app/app.ts": {
+    "mtime": 1777810191.3459036,
+    "ast_hash": "6e5b1336ffd11e7c5e947184f6621736",
+    "semantic_hash": "6e5b1336ffd11e7c5e947184f6621736"
+  },
+  "hrui/mvkhrweb/src/app/features/about/about.ts": {
+    "mtime": 1777812671.3262005,
+    "ast_hash": "95d54b426810e8dfc7db05ff8f759be8",
+    "semantic_hash": "95d54b426810e8dfc7db05ff8f759be8"
+  },
+  "hrui/mvkhrweb/src/app/features/contact/contact.ts": {
+    "mtime": 1777814154.8220775,
+    "ast_hash": "66fd59e35facbb3b13990acc4c137d45",
+    "semantic_hash": "66fd59e35facbb3b13990acc4c137d45"
+  },
+  "hrui/mvkhrweb/src/app/features/dashboard/dashboard.ts": {
+    "mtime": 1777836106.7908351,
+    "ast_hash": "dea63a499f9973b2154cb9c89e67abc6",
+    "semantic_hash": "dea63a499f9973b2154cb9c89e67abc6"
+  },
+  "hrui/mvkhrweb/src/app/features/dashboard/home/home.ts": {
+    "mtime": 1777836174.465468,
+    "ast_hash": "978b14f5759c5528cde98cc3d3894407",
+    "semantic_hash": "978b14f5759c5528cde98cc3d3894407"
+  },
+  "hrui/mvkhrweb/src/app/features/dashboard/upload/upload.ts": {
+    "mtime": 1777836238.557236,
+    "ast_hash": "8e89cb957974a4f1b22f61129f50efa3",
+    "semantic_hash": "8e89cb957974a4f1b22f61129f50efa3"
+  },
+  "hrui/mvkhrweb/src/app/features/landing/landing.ts": {
+    "mtime": 1777812601.451705,
+    "ast_hash": "6b6a7546ed6c5d3ede7f62e64de02425",
+    "semantic_hash": "6b6a7546ed6c5d3ede7f62e64de02425"
+  },
+  "hrui/mvkhrweb/src/app/features/login/login.ts": {
+    "mtime": 1777832668.1047287,
+    "ast_hash": "9639f0264778e0ac9b3942ef86aba5c4",
+    "semantic_hash": "9639f0264778e0ac9b3942ef86aba5c4"
+  },
+  "hrui/mvkhrweb/src/app/features/our-service/our-service.ts": {
+    "mtime": 1777813661.505209,
+    "ast_hash": "36f1e9710010a41fef387ef9c2f8ff7a",
+    "semantic_hash": "36f1e9710010a41fef387ef9c2f8ff7a"
+  },
+  "hrui/mvkhrweb/src/app/features/portfolio/portfolio.ts": {
+    "mtime": 1777813720.141821,
+    "ast_hash": "3fdf53505880f07f7b98cb73645f1481",
+    "semantic_hash": "3fdf53505880f07f7b98cb73645f1481"
+  },
+  "hrui/mvkhrweb/src/app/features/signup/signup.ts": {
+    "mtime": 1777815305.0787258,
+    "ast_hash": "1fd6c236fbb3434712046a88d6ee908f",
+    "semantic_hash": "1fd6c236fbb3434712046a88d6ee908f"
+  },
+  "hrui/mvkhrweb/src/app/shared/components/navbar/navbar.ts": {
+    "mtime": 1777813321.2085853,
+    "ast_hash": "a634652d3436765e280178f8bea59e09",
+    "semantic_hash": "a634652d3436765e280178f8bea59e09"
+  },
+  "hrui/mvkhrweb/src/main.server.ts": {
+    "mtime": 1777810191.3429046,
+    "ast_hash": "9ecb37b66d871903d853e186f8b37698",
+    "semantic_hash": "9ecb37b66d871903d853e186f8b37698"
+  },
+  "hrui/mvkhrweb/src/main.ts": {
+    "mtime": 1777810191.3353477,
+    "ast_hash": "1289536d6d8f94242a4ffc598d094633",
+    "semantic_hash": "1289536d6d8f94242a4ffc598d094633"
+  },
+  "hrui/mvkhrweb/src/server.ts": {
+    "mtime": 1777810191.34391,
+    "ast_hash": "fa889eb66db5f87778d773923c760b95",
+    "semantic_hash": "fa889eb66db5f87778d773923c760b95"
+  },
+  "hrui/mvkhrweb/tsconfig.app.json": {
+    "mtime": 1777810191.3247666,
+    "ast_hash": "866b5976b8ccf7ba16fd861f343851a8",
+    "semantic_hash": "866b5976b8ccf7ba16fd861f343851a8"
+  },
+  "hrui/mvkhrweb/tsconfig.json": {
+    "mtime": 1777810191.3227684,
+    "ast_hash": "deeef4bdcc28e2fcea8930a1dcd01ecb",
+    "semantic_hash": "deeef4bdcc28e2fcea8930a1dcd01ecb"
+  },
+  "hrui/mvkhrweb/tsconfig.spec.json": {
+    "mtime": 1777810191.3257704,
+    "ast_hash": "bd7d8d4dcf7261c37c6a35a892af2f35",
+    "semantic_hash": "bd7d8d4dcf7261c37c6a35a892af2f35"
+  }
+}

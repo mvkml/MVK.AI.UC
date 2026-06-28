@@ -1,0 +1,112 @@
+<div class="uc-shell">
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" [class.collapsed]="!sidebarOpen">
+
+    <!-- Logo + Toggle -->
+    <div class="sidebar-logo">
+      <svg viewBox="0 0 40 40" fill="none" width="30" height="30" style="flex-shrink:0">
+        <rect x="5"  y="5"  width="13" height="13" rx="2" fill="#7C6FFF"/>
+        <rect x="22" y="5"  width="13" height="13" rx="2" fill="#7C6FFF" opacity="0.6"/>
+        <rect x="5"  y="22" width="13" height="13" rx="2" fill="#7C6FFF" opacity="0.6"/>
+        <rect x="22" y="22" width="13" height="13" rx="2" fill="#7C6FFF"/>
+      </svg>
+      <div class="logo-text">
+        <span class="logo-name">UC</span>
+        <span class="logo-sub">Your Copilot</span>
+      </div>
+      <button class="btn-toggle" (click)="toggleSidebar()"
+              [title]="sidebarOpen ? 'Collapse' : 'Expand'">
+        {{ sidebarOpen ? '◀' : '▶' }}
+      </button>
+    </div>
+
+    <!-- New Chat -->
+    <a class="btn-new-session" routerLink="/dashboard" [title]="!sidebarOpen ? 'New Session' : ''">
+      <span class="icon">✏️</span>
+      <span class="label">New Session</span>
+    </a>
+
+    <!-- Search -->
+    <div class="sidebar-search">
+      <span class="search-icon">🔍</span>
+      <input class="search-input" type="text" placeholder="Search sessions..." />
+    </div>
+
+    <!-- Modules -->
+    <div class="sidebar-section">
+      <p class="section-label">Modules</p>
+      <ul class="nav-list">
+        @for (item of navItems; track item.label) {
+          <li class="nav-item"
+              [routerLink]="item.route"
+              routerLinkActive="active"
+              [title]="!sidebarOpen ? item.label : ''">
+            <span class="nav-icon">{{ item.icon }}</span>
+            <span class="nav-label">{{ item.label }}</span>
+          </li>
+        }
+      </ul>
+    </div>
+
+    <!-- Pinned -->
+    <div class="sidebar-section">
+      <p class="section-label">Pinned</p>
+      <ul class="nav-list">
+        @for (item of pinnedItems; track item.label) {
+          <li class="nav-item" [title]="!sidebarOpen ? item.label : ''">
+            <span class="nav-icon">{{ item.icon }}</span>
+            <span class="nav-label">{{ item.label }}</span>
+          </li>
+        }
+      </ul>
+    </div>
+
+    <!-- Recents -->
+    <div class="sidebar-section recents">
+      <p class="section-label">Recents</p>
+      <ul class="nav-list">
+        @for (session of recentSessions; track session) {
+          <li class="nav-item" [title]="!sidebarOpen ? session : ''">
+            <span class="nav-icon">💬</span>
+            <span class="nav-label session-label">{{ session }}</span>
+          </li>
+        }
+      </ul>
+    </div>
+
+    <!-- User -->
+    <div class="sidebar-user">
+      <div class="user-avatar">VK</div>
+      <div class="user-info">
+        <span class="user-name">Vishnu Kiran</span>
+        <span class="user-role">HR Manager</span>
+      </div>
+      <button class="btn-logout" (click)="logout()" title="Logout">⏻</button>
+    </div>
+
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <main class="main-area">
+
+    <!-- Topbar -->
+    <div class="topbar">
+      @if (!sidebarOpen) {
+        <button class="icon-btn hamburger" (click)="toggleSidebar()" title="Open sidebar">☰</button>
+      }
+      <span class="topbar-title">{{ pageTitle }}</span>
+      <div class="topbar-actions">
+        <button class="icon-btn" title="Notifications">🔔</button>
+        <button class="icon-btn" title="Settings">⚙️</button>
+      </div>
+    </div>
+
+    <!-- Child page rendered here -->
+    <div class="page-content">
+      <router-outlet></router-outlet>
+    </div>
+
+  </main>
+
+</div>

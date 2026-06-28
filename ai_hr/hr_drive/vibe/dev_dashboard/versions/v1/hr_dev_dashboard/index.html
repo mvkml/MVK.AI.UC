@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>ai_hr — Dev Dashboard</title>
+<style>
+  :root {
+    --bg: #0a0e2a;
+    --card: #0d1240;
+    --purple: #7C6FFF;
+    --blue: #4fc3f7;
+    --green: #68d391;
+    --orange: #f6ad55;
+    --red: #fc8181;
+    --white: #ffffff;
+    --muted: #a0aec0;
+    --border: rgba(124,111,255,0.15);
+    --gradient: linear-gradient(135deg, #7C6FFF, #4fc3f7);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    font-family: -apple-system, Segoe UI, Roboto, sans-serif;
+    background: var(--bg); color: var(--white);
+    display: flex;
+  }
+
+  /* ── LEFT PANE ── */
+  .sidebar {
+    width: 220px; flex-shrink: 0; min-height: 100vh;
+    background: var(--card); border-right: 1px solid var(--border);
+    padding: 24px 16px; display: flex; flex-direction: column; gap: 4px;
+  }
+  .sidebar .brand { margin-bottom: 20px; padding: 0 8px; }
+  .sidebar .brand h1 { margin: 0; font-size: 16px; }
+  .sidebar .brand p  { margin: 2px 0 0; font-size: 11px; color: var(--muted); }
+  .tab-btn {
+    display: flex; align-items: center; gap: 10px;
+    background: none; border: none; color: var(--muted);
+    padding: 10px 12px; border-radius: 10px; font-size: 13px; font-weight: 600;
+    cursor: pointer; text-align: left; transition: all .15s;
+  }
+  .tab-btn:hover   { background: rgba(124,111,255,0.08); color: var(--white); }
+  .tab-btn.active  { background: rgba(124,111,255,0.18); color: var(--white); }
+  .tab-btn .icon   { font-size: 15px; }
+
+  /* ── MAIN AREA ── */
+  .main { flex: 1; padding: 32px; overflow-y: auto; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  header { margin-bottom: 24px; }
+  header h2 { margin: 0 0 6px; font-size: 20px; }
+  header p  { margin: 0; color: var(--muted); font-size: 13px; }
+
+  /* Project Structure grid */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; transition: all .2s; }
+  .card:hover { border-color: var(--purple); transform: translateY(-2px); }
+  .card h3 { margin: 0 0 10px; font-size: 16px; display: flex; align-items: center; gap: 8px; }
+  .card h3 .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--gradient); flex-shrink: 0; }
+  .card ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+  .card li { font-size: 13px; color: var(--muted); padding-left: 18px; position: relative; }
+  .card li::before { content: "└"; position: absolute; left: 0; opacity: .5; }
+  .card .empty { font-style: italic; opacity: .6; }
+  .legend { margin-top: 30px; font-size: 12px; color: var(--muted); }
+
+  /* Team Status grid */
+  .agent-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+  .agent-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; }
+  .agent-card .a-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .agent-card .a-icon { font-size: 22px; }
+  .agent-card .a-name { font-size: 14px; font-weight: 700; }
+  .status-pill { font-size: 10px; font-weight: 700; padding: 2px 9px; border-radius: 20px; text-transform: uppercase; letter-spacing: .4px; margin-left: auto; }
+  .status-pill.idle    { background: rgba(160,174,192,0.15); color: var(--muted); }
+  .status-pill.working { background: rgba(104,211,145,0.15); color: var(--green); }
+  .agent-card .task-subject { font-size: 12px; color: var(--white); margin: 6px 0 4px; }
+  .agent-card .task-desc    { font-size: 11px; color: var(--muted); line-height: 1.4; }
+  .agent-card .task-id      { font-size: 10px; color: var(--purple); font-weight: 700; }
+  .agent-card .no-task      { font-size: 12px; color: var(--muted); font-style: italic; }
+
+  /* Current Work — arrow chains */
+  .task-chain-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; margin-bottom: 16px; }
+  .task-chain-card .tc-id      { font-size: 11px; color: var(--purple); font-weight: 700; }
+  .task-chain-card .tc-subject { font-size: 14px; font-weight: 700; margin: 4px 0 14px; }
+  .chain-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+  .chain-step {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 12px; padding: 6px 12px; border-radius: 20px;
+    background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--muted);
+  }
+  .chain-step.done    { color: var(--green); border-color: rgba(104,211,145,0.3); }
+  .chain-step.working { color: var(--white); border-color: var(--purple); background: rgba(124,111,255,0.15); }
+  .chain-arrow { color: var(--muted); font-size: 13px; }
+  .no-work { color: var(--muted); font-style: italic; font-size: 13px; }
+
+  /* Agile tab — Kanban */
+  .module-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .chip {
+    background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+    color: var(--muted); padding: 6px 14px; border-radius: 20px;
+    font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s;
+  }
+  .chip:hover  { border-color: var(--purple); color: var(--white); }
+  .chip.active { background: rgba(124,111,255,0.2); border-color: var(--purple); color: var(--white); }
+
+  .kanban { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .kanban-col h3 { font-size: 13px; font-weight: 700; margin: 0 0 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; }
+  .kanban-col .count { color: var(--purple); }
+  .kanban-cards { display: flex; flex-direction: column; gap: 10px; }
+  .kanban-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 12px 14px;
+  }
+  .kanban-card .kc-id { font-size: 10px; color: var(--purple); font-weight: 700; }
+  .kanban-card .kc-title { font-size: 13px; font-weight: 600; margin: 4px 0 8px; }
+  .kanban-card .kc-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tag { font-size: 10px; font-weight: 600; padding: 2px 9px; border-radius: 20px; }
+  .tag.module    { background: rgba(79,195,247,0.12);  color: var(--blue); }
+  .tag.priority-High   { background: rgba(252,129,129,0.15); color: var(--red); }
+  .tag.priority-Medium { background: rgba(246,173,85,0.15);  color: var(--orange); }
+  .tag.priority-Low    { background: rgba(160,174,192,0.15); color: var(--muted); }
+  .tag.type-backlog { background: rgba(124,111,255,0.18); color: var(--purple); }
+  .tag.type-task    { background: rgba(255,255,255,0.06); color: var(--muted); }
+</style>
+</head>
+<body>
+
+  <!-- ===== LEFT PANE ===== -->
+  <nav class="sidebar">
+    <div class="brand">
+      <h1>🧭 ai_hr</h1>
+      <p>Dev Dashboard</p>
+    </div>
+    <button class="tab-btn active" data-tab="team-status"><span class="icon">🧑‍🤝‍🧑</span> Team Status</button>
+    <button class="tab-btn" data-tab="current-work"><span class="icon">🔄</span> Current Work</button>
+    <button class="tab-btn" data-tab="agile"><span class="icon">📋</span> Agile</button>
+    <button class="tab-btn" data-tab="project-structure"><span class="icon">📁</span> Project Structure</button>
+  </nav>
+
+  <!-- ===== MAIN AREA ===== -->
+  <main class="main">
+
+    <!-- TEAM STATUS (default) -->
+    <section class="tab-panel active" id="tab-team-status">
+      <header>
+        <h2>🧑‍🤝‍🧑 Agile Team — Live Status</h2>
+        <p>What each agent is doing right now. No history — only the current moment.</p>
+      </header>
+      <div class="agent-grid" id="agent-grid"></div>
+    </section>
+
+    <!-- CURRENT WORK -->
+    <section class="tab-panel" id="tab-current-work">
+      <header>
+        <h2>🔄 Current Work</h2>
+        <p>Active task chains: requester → agents in execution order. Highlighted step = working now.</p>
+      </header>
+      <div id="task-chains"></div>
+    </section>
+
+    <!-- AGILE -->
+    <section class="tab-panel" id="tab-agile">
+      <header>
+        <h2>📋 Agile — Backlog &amp; Tasks</h2>
+        <p>Pulled from hr_agile/product_owner/backlog and scrum/tasks. Filter by module, grouped by status.</p>
+      </header>
+      <div class="module-chips" id="module-chips"></div>
+      <div class="kanban" id="kanban"></div>
+    </section>
+
+    <!-- PROJECT STRUCTURE -->
+    <section class="tab-panel" id="tab-project-structure">
+      <header>
+        <h2>📁 Project Structure</h2>
+        <p>Static navigation map of the ai_hr project structure. Generated manually — update when folders change.</p>
+      </header>
+
+      <div class="grid">
+        <div class="card">
+          <h3><span class="dot"></span> hr_agile</h3>
+          <ul>
+            <li>team/ — role agent definitions</li>
+            <li>product_owner/ — backlog, roadmap, capability tracker</li>
+            <li>scrum/ — sprints, tasks, user stories</li>
+            <li>architecture/ — ADRs, tech stack, diagrams</li>
+            <li>worklogs/ — dated logs per role</li>
+            <li>_master_template/ — reusable skeleton for other projects</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3><span class="dot"></span> hr_apis</h3>
+          <ul><li class="empty">empty — backend not started yet</li></ul>
+        </div>
+
+        <div class="card">
+          <h3><span class="dot"></span> hr_data_source</h3>
+          <ul>
+            <li>hr_sql/</li>
+            <li>hr_pg/</li>
+            <li>hr_cosmos/</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3><span class="dot"></span> hr_devops</h3>
+          <ul><li class="empty">no longer a separate git repo — merged into ai_hr; empty otherwise</li></ul>
+        </div>
+
+        <div class="card">
+          <h3><span class="dot"></span> hr_drive</h3>
+          <ul>
+            <li>credentials/ — db connection settings (.env.example)</li>
+            <li>learn/</li>
+            <li>vibe/ — <strong>you are here</strong></li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3><span class="dot"></span> hr_ui</h3>
+          <ul>
+            <li>mvkhrweb/ — Angular web app (active)</li>
+            <li>mvkhrapp/</li>
+            <li>mvkhrmobile/</li>
+            <li>mvk_qa/</li>
+            <li>documents/</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3><span class="dot"></span> graphify-out</h3>
+          <ul><li>graph.json — generated knowledge graph (170 nodes, 202 edges)</li></ul>
+        </div>
+
+        <div class="card">
+          <h3><span class="dot"></span> .gitignore</h3>
+          <ul>
+            <li>node_modules/, dist/, .angular/</li>
+            <li>graphify-out/cache/</li>
+            <li>*.env (real secrets — .env.example stays tracked)</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="legend">Path: C:\git\v\ai_hr\hr_drive\vibe\hr_dev_dashboard\index.html</p>
+    </section>
+
+  </main>
+
+<script src="agent_status.js"></script>
+<script src="agile_data.js"></script>
+<script>
+  // ── Tab switching ──
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // ── Team Status render ──
+  const agentGrid = document.getElementById('agent-grid');
+  agentGrid.innerHTML = agentStatus.map(a => {
+    const pill = `<span class="status-pill ${a.status}">${a.status}</span>`;
+    const body = a.status === 'working' && a.task
+      ? `<div class="task-id">${a.task.id}</div>
+         <div class="task-subject">${a.task.subject}</div>
+         <div class="task-desc">${a.task.description}</div>`
+      : `<div class="no-task">No active task</div>`;
+    return `
+      <div class="agent-card">
+        <div class="a-head">
+          <span class="a-icon">${a.icon}</span>
+          <span class="a-name">${a.agent}</span>
+          ${pill}
+        </div>
+        ${body}
+      </div>`;
+  }).join('');
+
+  // ── Current Work render (arrow chains) ──
+  const taskChains = document.getElementById('task-chains');
+  if (!currentTasks.length) {
+    taskChains.innerHTML = `<p class="no-work">No active work right now.</p>`;
+  } else {
+    taskChains.innerHTML = currentTasks.map(t => {
+      const steps = t.chain.map((s, i) => {
+        const arrow = i === 0 ? '' : `<span class="chain-arrow">→</span>`;
+        return `${arrow}<span class="chain-step ${s.status}">${s.name}</span>`;
+      }).join('');
+      return `
+        <div class="task-chain-card">
+          <div class="tc-id">${t.id}</div>
+          <div class="tc-subject">${t.subject}</div>
+          <div class="chain-row">${steps}</div>
+        </div>`;
+    }).join('');
+  }
+
+  // ── Agile tab render ──
+  const modules = ['All', ...new Set(agileItems.map(i => i.module))];
+  let activeModule = 'All';
+
+  const chipsEl = document.getElementById('module-chips');
+  chipsEl.innerHTML = modules.map(m =>
+    `<button class="chip ${m === activeModule ? 'active' : ''}" data-module="${m}">${m}</button>`
+  ).join('');
+
+  function renderKanban() {
+    const filtered = activeModule === 'All' ? agileItems : agileItems.filter(i => i.module === activeModule);
+    const cols = [
+      { status: 'Pending',     label: 'Pending' },
+      { status: 'In Progress', label: 'In Progress' },
+      { status: 'Completed',   label: 'Completed' },
+    ];
+    document.getElementById('kanban').innerHTML = cols.map(col => {
+      const items = filtered.filter(i => i.status === col.status);
+      const cards = items.map(i => `
+        <div class="kanban-card">
+          <div class="kc-id">${i.id}${i.parent ? ' · ' + i.parent : ''}</div>
+          <div class="kc-title">${i.title}</div>
+          <div class="kc-tags">
+            <span class="tag type-${i.type}">${i.type}</span>
+            <span class="tag module">${i.module}</span>
+            <span class="tag priority-${i.priority}">${i.priority}</span>
+          </div>
+        </div>
+      `).join('') || `<p class="no-work">None</p>`;
+      return `
+        <div class="kanban-col">
+          <h3>${col.label} <span class="count">(${items.length})</span></h3>
+          <div class="kanban-cards">${cards}</div>
+        </div>`;
+    }).join('');
+  }
+
+  chipsEl.addEventListener('click', e => {
+    const btn = e.target.closest('.chip');
+    if (!btn) return;
+    activeModule = btn.dataset.module;
+    chipsEl.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', c.dataset.module === activeModule));
+    renderKanban();
+  });
+
+  renderKanban();
+</script>
+
+</body>
+</html>

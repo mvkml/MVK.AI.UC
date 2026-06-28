@@ -1,0 +1,141 @@
+<!-- About Page — UC Your Copilot -->
+<div class="about-wrapper">
+
+  <!-- 1. SHARED NAVBAR -->
+  <app-navbar></app-navbar>
+
+  <!-- 2. HERO BANNER -->
+  <section class="about-hero">
+    <div class="hero-content">
+      <div class="hero-badge">About UC</div>
+      <h1>Your Intelligent <span class="gradient-text">HR Partner</span></h1>
+      <p>UC — Your Copilot is an AI-powered HR assistant built to transform
+        the way organizations manage, search, and act on HR information.
+        We combine cutting-edge technology with deep HR expertise.</p>
+    </div>
+    <div class="hero-robot">
+      <div class="robot-glow"></div>
+      <div class="robot-icon">🤖</div>
+    </div>
+  </section>
+
+  <!-- 3. WHO WE ARE -->
+  <section class="who-we-are">
+    <div class="section-container">
+      <div class="section-label">Who We Are</div>
+      <h2>Built for the <span class="gradient-text">Future of HR</span></h2>
+      <div class="who-content">
+        <div class="who-text">
+          <p>UC — Your Copilot is an intelligent HR platform designed to help
+            HR professionals work smarter, faster, and with greater confidence.
+            We bring the power of AI directly into your HR workflows.</p>
+          <p>From intelligent document search powered by Azure AI Search, to
+            deep analytics and graph-based insights via Graphify — UC is your
+            single intelligent partner for every HR decision.</p>
+        </div>
+        <div class="who-visual">
+          <div class="visual-card">
+            <span class="visual-num gradient-text">7+</span>
+            <span class="visual-label">AI Agents</span>
+          </div>
+          <div class="visual-card">
+            <span class="visual-num gradient-text">100%</span>
+            <span class="visual-label">AI Powered</span>
+          </div>
+          <div class="visual-card">
+            <span class="visual-num gradient-text">∞</span>
+            <span class="visual-label">Capabilities</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. OUR MISSION -->
+  <section class="mission">
+    <div class="section-container">
+      <div class="mission-content">
+        <div class="mission-icon">🎯</div>
+        <div class="mission-text">
+          <div class="section-label">Our Mission</div>
+          <h2>Empowering HR Teams with <span class="gradient-text">Intelligence</span></h2>
+          <p>Our mission is to empower HR teams with intelligent tools that make
+            complex HR processes simple, fast, and accurate. We believe every
+            HR decision should be backed by data, insight, and AI precision.</p>
+          <div class="mission-quote">
+            <span class="quote-mark">❝</span>
+            <em>Not just an assistant — your intelligent partner in every HR decision.</em>
+            <span class="quote-mark">❞</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. WHAT WE DO -->
+  <section class="what-we-do">
+    <div class="section-container">
+      <div class="section-label">What We Do</div>
+      <h2>Our <span class="gradient-text">Capabilities</span></h2>
+      <p class="section-desc">Powerful features built to solve real HR challenges</p>
+      <div class="capabilities-grid">
+        @for (cap of capabilities; track cap.title) {
+          <div class="capability-card">
+            <div class="cap-icon">{{ cap.icon }}</div>
+            <h4>{{ cap.title }}</h4>
+            <p>{{ cap.desc }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. OUR TECHNOLOGY -->
+  <section class="technology">
+    <div class="section-container">
+      <div class="section-label">Our Technology</div>
+      <h2>Built on <span class="gradient-text">Enterprise-Grade</span> Tech</h2>
+      <p class="section-desc">A modern, scalable stack designed for the future</p>
+      <div class="tech-grid">
+        @for (tech of techStack; track tech.name) {
+          <div class="tech-card">
+            <div class="tech-icon">{{ tech.icon }}</div>
+            <h4>{{ tech.name }}</h4>
+            <p>{{ tech.desc }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. OUR TEAM -->
+  <section class="our-team">
+    <div class="section-container">
+      <div class="section-label">Our Team</div>
+      <h2>Meet the <span class="gradient-text">AI Agents</span></h2>
+      <p class="section-desc">A dedicated team of specialized AI agents working together</p>
+      <div class="team-grid">
+        @for (member of team; track member.name) {
+          <div class="team-card">
+            <div class="team-avatar">{{ member.icon }}</div>
+            <h4>{{ member.name }}</h4>
+            <p>{{ member.role }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. FOOTER CTA -->
+  <section class="footer-cta">
+    <div class="cta-content">
+      <h2>Ready to Transform Your <span class="gradient-text">HR Experience?</span></h2>
+      <p>Join UC — Your Copilot and experience the future of HR today.</p>
+      <div class="cta-actions">
+        <button class="btn-get-started">Get Started Free</button>
+        <button class="btn-learn-more">Learn More</button>
+      </div>
+    </div>
+  </section>
+
+</div>

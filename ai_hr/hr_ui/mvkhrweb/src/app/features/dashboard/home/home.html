@@ -1,0 +1,69 @@
+<!-- ── EMPTY STATE ── -->
+@if (messages.length === 0) {
+  <div class="center-content">
+    <div class="greeting">
+      <div class="robot-glow">🤖</div>
+      <h1>Good to see you, <span class="gradient-text">Vishnu</span> 👋</h1>
+      <p>What would you like to do today? Ask UC or pick an action below.</p>
+    </div>
+
+    <div class="prompt-box">
+      <textarea [(ngModel)]="prompt" (keydown)="onKeyDown($event)"
+        placeholder="Ask UC anything about HR — candidates, payroll, reports, policies..."
+        rows="1" autofocus></textarea>
+      <button class="btn-send" (click)="onSend()" [disabled]="!prompt.trim()">➤</button>
+    </div>
+    <p class="input-hint">Press <kbd>Enter</kbd> to send · <kbd>Shift+Enter</kbd> for new line</p>
+
+    <div class="quick-actions">
+      @for (action of quickActions; track action.label) {
+        <button class="quick-card" (click)="clickQuickAction(action)">
+          <span class="qa-icon">{{ action.icon }}</span>
+          <span class="qa-label">{{ action.label }}</span>
+          <span class="qa-desc">{{ action.desc }}</span>
+        </button>
+      }
+    </div>
+  </div>
+}
+
+<!-- ── CHAT STATE ── -->
+@if (messages.length > 0) {
+  <div class="chat-layout">
+
+    <div class="messages-area" #messagesArea>
+      @for (msg of messages; track $index) {
+        @if (msg.role === 'ai') {
+          <div class="msg-row ai">
+            <div class="msg-avatar ai-av">🤖</div>
+            <div class="msg-bubble ai-bubble">{{ msg.text }}</div>
+          </div>
+        }
+        @if (msg.role === 'user') {
+          <div class="msg-row user">
+            <div class="msg-bubble user-bubble">{{ msg.text }}</div>
+            <div class="msg-avatar user-av">VK</div>
+          </div>
+        }
+      }
+      @if (isTyping) {
+        <div class="msg-row ai">
+          <div class="msg-avatar ai-av">🤖</div>
+          <div class="msg-bubble ai-bubble typing-bubble">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="bottom-bar">
+      <div class="prompt-box">
+        <textarea [(ngModel)]="prompt" (keydown)="onKeyDown($event)"
+          placeholder="Ask UC anything..." rows="1"></textarea>
+        <button class="btn-send" (click)="onSend()" [disabled]="!prompt.trim() || isTyping">➤</button>
+      </div>
+      <p class="input-hint">Press <kbd>Enter</kbd> to send · <kbd>Shift+Enter</kbd> for new line</p>
+    </div>
+
+  </div>
+}

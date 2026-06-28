@@ -1,0 +1,275 @@
+{
+  "communities": {
+    "0": [
+      "about_about",
+      "about_about_about",
+      "app_app_routes",
+      "contact_contact",
+      "contact_contact_contact",
+      "contact_contact_contact_onsubmit",
+      "landing_landing",
+      "landing_landing_landing",
+      "login_login",
+      "login_login_login",
+      "login_login_login_constructor",
+      "login_login_login_onsubmit",
+      "login_login_login_togglepassword",
+      "login_login_mock_users",
+      "navbar_navbar",
+      "navbar_navbar_navbar",
+      "our_service_our_service",
+      "our_service_our_service_ourservice",
+      "portfolio_portfolio",
+      "portfolio_portfolio_portfolio"
+    ],
+    "1": [
+      "mvkhrweb_angular_architect_build",
+      "mvkhrweb_angular_architect_serve",
+      "mvkhrweb_angular_build_builder",
+      "mvkhrweb_angular_build_configurations",
+      "mvkhrweb_angular_build_defaultconfiguration",
+      "mvkhrweb_angular_configurations_development",
+      "mvkhrweb_angular_configurations_production",
+      "mvkhrweb_angular_development_buildtarget",
+      "mvkhrweb_angular_development_extractlicenses",
+      "mvkhrweb_angular_development_optimization",
+      "mvkhrweb_angular_development_sourcemap",
+      "mvkhrweb_angular_mvkhrweb_architect",
+      "mvkhrweb_angular_production_budgets",
+      "mvkhrweb_angular_production_buildtarget",
+      "mvkhrweb_angular_production_outputhashing",
+      "mvkhrweb_angular_serve_builder",
+      "mvkhrweb_angular_serve_configurations",
+      "mvkhrweb_angular_serve_defaultconfiguration"
+    ],
+    "2": [
+      "mvkhrweb_angular_mvkhrweb_schematics",
+      "mvkhrweb_angular_schematics_angular_class_skiptests",
+      "mvkhrweb_angular_schematics_angular_component_skiptests",
+      "mvkhrweb_angular_schematics_angular_component_style",
+      "mvkhrweb_angular_schematics_angular_directive_skiptests",
+      "mvkhrweb_angular_schematics_angular_guard_skiptests",
+      "mvkhrweb_angular_schematics_angular_interceptor_skiptests",
+      "mvkhrweb_angular_schematics_angular_pipe_skiptests",
+      "mvkhrweb_angular_schematics_angular_resolver_skiptests",
+      "mvkhrweb_angular_schematics_angular_service_skiptests",
+      "mvkhrweb_angular_schematics_schematics_angular_class",
+      "mvkhrweb_angular_schematics_schematics_angular_component",
+      "mvkhrweb_angular_schematics_schematics_angular_directive",
+      "mvkhrweb_angular_schematics_schematics_angular_guard",
+      "mvkhrweb_angular_schematics_schematics_angular_interceptor",
+      "mvkhrweb_angular_schematics_schematics_angular_pipe",
+      "mvkhrweb_angular_schematics_schematics_angular_resolver",
+      "mvkhrweb_angular_schematics_schematics_angular_service"
+    ],
+    "3": [
+      "mvkhrweb_package",
+      "mvkhrweb_package_devdependencies",
+      "mvkhrweb_package_devdependencies_angular_build",
+      "mvkhrweb_package_devdependencies_angular_cli",
+      "mvkhrweb_package_devdependencies_angular_compiler_cli",
+      "mvkhrweb_package_devdependencies_types_express",
+      "mvkhrweb_package_devdependencies_types_node",
+      "mvkhrweb_package_devdependencies_typescript",
+      "mvkhrweb_package_name",
+      "mvkhrweb_package_packagemanager",
+      "mvkhrweb_package_prettier",
+      "mvkhrweb_package_prettier_overrides",
+      "mvkhrweb_package_prettier_printwidth",
+      "mvkhrweb_package_prettier_singlequote",
+      "mvkhrweb_package_private",
+      "mvkhrweb_package_version"
+    ],
+    "4": [
+      "upload_upload",
+      "upload_upload_upload",
+      "upload_upload_upload_addfiles",
+      "upload_upload_upload_formatsize",
+      "upload_upload_upload_getexticon",
+      "upload_upload_upload_getstatusbadge",
+      "upload_upload_upload_ondragleave",
+      "upload_upload_upload_ondragover",
+      "upload_upload_upload_ondrop",
+      "upload_upload_upload_onfileselect",
+      "upload_upload_upload_openfiledialog",
+      "upload_upload_upload_removefile",
+      "upload_upload_upload_retryfile",
+      "upload_upload_upload_simulateupload",
+      "upload_upload_uploadfile"
+    ],
+    "5": [
+      "app_app",
+      "app_app_app",
+      "app_app_config",
+      "app_app_config_appconfig",
+      "app_app_config_server",
+      "app_app_config_server_config",
+      "app_app_config_server_serverconfig",
+      "app_app_routes_routes",
+      "app_app_routes_server",
+      "app_app_routes_server_serverroutes",
+      "src_main",
+      "src_main_server",
+      "src_main_server_bootstrap"
+    ],
+    "6": [
+      "mvkhrweb_angular",
+      "mvkhrweb_angular_cli",
+      "mvkhrweb_angular_cli_analytics",
+      "mvkhrweb_angular_cli_packagemanager",
+      "mvkhrweb_angular_mvkhrweb_prefix",
+      "mvkhrweb_angular_mvkhrweb_projecttype",
+      "mvkhrweb_angular_mvkhrweb_root",
+      "mvkhrweb_angular_mvkhrweb_sourceroot",
+      "mvkhrweb_angular_newprojectroot",
+      "mvkhrweb_angular_projects",
+      "mvkhrweb_angular_projects_mvkhrweb",
+      "mvkhrweb_angular_schema",
+      "mvkhrweb_angular_version"
+    ],
+    "7": [
+      "mvkhrweb_package_dependencies",
+      "mvkhrweb_package_dependencies_angular_common",
+      "mvkhrweb_package_dependencies_angular_compiler",
+      "mvkhrweb_package_dependencies_angular_core",
+      "mvkhrweb_package_dependencies_angular_forms",
+      "mvkhrweb_package_dependencies_angular_platform_browser",
+      "mvkhrweb_package_dependencies_angular_platform_server",
+      "mvkhrweb_package_dependencies_angular_router",
+      "mvkhrweb_package_dependencies_angular_ssr",
+      "mvkhrweb_package_dependencies_express",
+      "mvkhrweb_package_dependencies_rxjs",
+      "mvkhrweb_package_dependencies_tslib"
+    ],
+    "8": [
+      "home_home",
+      "home_home_home",
+      "home_home_home_clickquickaction",
+      "home_home_home_constructor",
+      "home_home_home_ngafterviewchecked",
+      "home_home_home_onkeydown",
+      "home_home_home_onsend",
+      "home_home_home_scrolltobottom",
+      "home_home_message",
+      "home_home_mock_ai"
+    ],
+    "9": [
+      "mvkhrweb_angular_build_options",
+      "mvkhrweb_angular_options_assets",
+      "mvkhrweb_angular_options_browser",
+      "mvkhrweb_angular_options_inlinestylelanguage",
+      "mvkhrweb_angular_options_outputmode",
+      "mvkhrweb_angular_options_server",
+      "mvkhrweb_angular_options_ssr",
+      "mvkhrweb_angular_options_styles",
+      "mvkhrweb_angular_options_tsconfig",
+      "mvkhrweb_angular_ssr_entry"
+    ],
+    "10": [
+      "dashboard_dashboard",
+      "dashboard_dashboard_dashboard",
+      "dashboard_dashboard_dashboard_constructor",
+      "dashboard_dashboard_dashboard_logout",
+      "dashboard_dashboard_dashboard_ngoninit",
+      "dashboard_dashboard_dashboard_togglesidebar",
+      "dashboard_dashboard_dashboard_updatetitle"
+    ],
+    "11": [
+      "mvkhrweb_package_scripts",
+      "mvkhrweb_package_scripts_build",
+      "mvkhrweb_package_scripts_ng",
+      "mvkhrweb_package_scripts_serve_ssr_mvkhrweb",
+      "mvkhrweb_package_scripts_start",
+      "mvkhrweb_package_scripts_test",
+      "mvkhrweb_package_scripts_watch"
+    ],
+    "12": [
+      "signup_signup",
+      "signup_signup_signup",
+      "signup_signup_signup_getpasswordstrength",
+      "signup_signup_signup_nextstep",
+      "signup_signup_signup_onsubmit",
+      "signup_signup_signup_prevstep"
+    ],
+    "13": [
+      "src_server",
+      "src_server_angularapp",
+      "src_server_app",
+      "src_server_browserdistfolder",
+      "src_server_reqhandler"
+    ]
+  },
+  "cohesion": {
+    "0": 0.17894736842105263,
+    "1": 0.12418300653594772,
+    "2": 0.1111111111111111,
+    "3": 0.125,
+    "4": 0.1619047619047619,
+    "5": 0.24358974358974358,
+    "6": 0.15384615384615385,
+    "7": 0.16666666666666666,
+    "8": 0.26666666666666666,
+    "9": 0.2,
+    "10": 0.3333333333333333,
+    "11": 0.2857142857142857,
+    "12": 0.3333333333333333,
+    "13": 0.4
+  },
+  "gods": [
+    {
+      "id": "upload_upload_upload",
+      "label": "Upload",
+      "degree": 14
+    },
+    {
+      "id": "mvkhrweb_angular_mvkhrweb_schematics",
+      "label": "schematics",
+      "degree": 9
+    },
+    {
+      "id": "mvkhrweb_angular_build_options",
+      "label": "options",
+      "degree": 9
+    },
+    {
+      "id": "home_home_home",
+      "label": "Home",
+      "degree": 8
+    },
+    {
+      "id": "mvkhrweb_angular_projects_mvkhrweb",
+      "label": "mvkhrweb",
+      "degree": 7
+    },
+    {
+      "id": "mvkhrweb_package_scripts",
+      "label": "scripts",
+      "degree": 7
+    },
+    {
+      "id": "dashboard_dashboard_dashboard",
+      "label": "Dashboard",
+      "degree": 7
+    },
+    {
+      "id": "mvkhrweb_angular_configurations_development",
+      "label": "development",
+      "degree": 6
+    },
+    {
+      "id": "signup_signup_signup",
+      "label": "Signup",
+      "degree": 6
+    },
+    {
+      "id": "navbar_navbar_navbar",
+      "label": "Navbar",
+      "degree": 6
+    }
+  ],
+  "surprises": [],
+  "tokens": {
+    "input": 16480,
+    "output": 3628
+  }
+}

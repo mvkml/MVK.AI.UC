@@ -1,0 +1,75 @@
+<!-- Portfolio Page — UC Your Copilot -->
+<div class="portfolio-wrapper">
+
+  <!-- NAVBAR -->
+  <app-navbar></app-navbar>
+
+  <!-- 1. HERO -->
+  <section class="portfolio-hero">
+    <div class="hero-badge">Portfolio</div>
+    <h1>Our <span class="gradient-text">Work & Achievements</span></h1>
+    <p>Explore what UC has built — from intelligent HR pages to AI-powered
+      search, analytics and beyond. Every sprint, we deliver more.</p>
+  </section>
+
+  <!-- 2. STATS STRIP -->
+  <section class="stats-strip">
+    @for (stat of stats; track stat.label) {
+      <div class="stat-item">
+        <span class="stat-value gradient-text">{{ stat.value }}</span>
+        <span class="stat-label">{{ stat.label }}</span>
+      </div>
+    }
+  </section>
+
+  <!-- 3. PROJECTS GRID -->
+  <section class="projects-section">
+    <div class="section-container">
+      <div class="section-label">What We've Built</div>
+      <h2>Our <span class="gradient-text">Projects</span></h2>
+      <p class="section-desc">From sprint 01 — building one screen at a time</p>
+      <div class="projects-grid">
+        @for (project of projects; track project.title) {
+          <div class="project-card" [class.planned]="project.status.includes('Planned')">
+            <div class="project-header">
+              <span class="project-icon">{{ project.icon }}</span>
+              <span class="project-status">{{ project.status }}</span>
+            </div>
+            <h4>{{ project.title }}</h4>
+            <p>{{ project.desc }}</p>
+            <div class="project-tags">
+              @for (tag of project.tags; track tag) {
+                <span class="tag">{{ tag }}</span>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. TECHNOLOGIES -->
+  <section class="technologies">
+    <div class="section-container">
+      <div class="section-label">Technologies</div>
+      <h2>Our <span class="gradient-text">Tech Stack</span></h2>
+      <p class="section-desc">Enterprise-grade technologies powering UC</p>
+      <div class="tech-badges">
+        @for (tech of techBadges; track tech) {
+          <span class="tech-badge">{{ tech }}</span>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. FOOTER CTA -->
+  <section class="footer-cta">
+    <h2>Want to See <span class="gradient-text">More?</span></h2>
+    <p>We're building new features every sprint. Get in touch or sign up to stay updated.</p>
+    <div class="cta-actions">
+      <button class="btn-primary">Get Started Free</button>
+      <button class="btn-secondary">Contact Us</button>
+    </div>
+  </section>
+
+</div>

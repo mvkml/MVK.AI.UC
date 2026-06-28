@@ -1,0 +1,73 @@
+<div class="employees-page">
+
+  <!-- Stats Row -->
+  <div class="stats-row">
+    @for (s of stats; track s.label) {
+      <div class="stat-card">
+        <span class="stat-icon">{{ s.icon }}</span>
+        <div class="stat-info">
+          <span class="stat-val" [style.color]="s.color">{{ s.value }}</span>
+          <span class="stat-label">{{ s.label }}</span>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" placeholder="Search by name or title..." [(ngModel)]="searchTerm" />
+    </div>
+
+    <div class="dept-chips">
+      @for (d of departments; track d) {
+        <button class="chip" [class.active]="selectedDept === d" (click)="selectedDept = d">{{ d }}</button>
+      }
+    </div>
+
+    <button class="btn-add">➕ Add Employee</button>
+  </div>
+
+  <!-- Employee Table -->
+  <div class="employee-list">
+    <div class="employee-list-header">
+      <span>Employee</span>
+      <span>Department</span>
+      <span>Email</span>
+      <span>Join Date</span>
+      <span>Status</span>
+      <span></span>
+    </div>
+
+    @for (emp of filteredEmployees; track emp.id) {
+      <div class="employee-row">
+        <div class="emp-name">
+          <span class="avatar">{{ emp.initials }}</span>
+          <div class="emp-meta">
+            <span class="ename">{{ emp.name }}</span>
+            <span class="etitle">{{ emp.title }}</span>
+          </div>
+        </div>
+        <span class="dept-tag">{{ emp.department }}</span>
+        <span class="email">{{ emp.email }}</span>
+        <span class="join-date">{{ emp.joinDate }}</span>
+        <span class="status-badge" [class]="getStatusClass(emp.status)">
+          {{ getStatusBadge(emp.status) }}
+        </span>
+        <div class="row-actions">
+          <button class="btn-icon" title="View">👁️</button>
+          <button class="btn-icon" title="Edit">✏️</button>
+        </div>
+      </div>
+    }
+
+    @if (filteredEmployees.length === 0) {
+      <div class="empty-state">
+        <span>🔍</span>
+        <p>No employees match your search.</p>
+      </div>
+    }
+  </div>
+
+</div>

@@ -1,0 +1,145 @@
+<!-- Login Page — UC Your Copilot -->
+<div class="login-wrapper">
+
+  <!-- LEFT PANEL -->
+  <div class="login-left">
+
+    <!-- Logo -->
+    <div class="logo">
+      <a routerLink="/" class="logo-link">
+        <svg viewBox="0 0 40 40" fill="none" width="36" height="36">
+          <rect x="5" y="5" width="13" height="13" rx="2" fill="#7C6FFF"/>
+          <rect x="22" y="5" width="13" height="13" rx="2" fill="#7C6FFF" opacity="0.6"/>
+          <rect x="5" y="22" width="13" height="13" rx="2" fill="#7C6FFF" opacity="0.6"/>
+          <rect x="22" y="22" width="13" height="13" rx="2" fill="#7C6FFF"/>
+        </svg>
+        <div class="logo-text">
+          <span class="logo-name">UC</span>
+          <span class="logo-sub">Your Copilot</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Card -->
+    <div class="login-card">
+      <div class="card-header">
+        <h1>Welcome Back 👋</h1>
+        <p>Sign in to your UC account to continue</p>
+      </div>
+
+      <!-- Error -->
+      @if (errorMsg) {
+        <div class="error-msg">⚠️ {{ errorMsg }}</div>
+      }
+
+      <!-- Form -->
+      <form class="login-form" (ngSubmit)="onSubmit()">
+
+        <!-- Email -->
+        <div class="form-group">
+          <label>Email Address</label>
+          <div class="input-wrap">
+            <span class="input-icon">📧</span>
+            <input type="email" [(ngModel)]="form.email"
+                   name="email" placeholder="your@email.com"
+                   autocomplete="email" />
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <div class="label-row">
+            <label>Password</label>
+            <a href="#" class="forgot-link">Forgot password?</a>
+          </div>
+          <div class="input-wrap">
+            <span class="input-icon">🔒</span>
+            <input [type]="showPassword ? 'text' : 'password'"
+                   [(ngModel)]="form.password" name="password"
+                   placeholder="Enter your password"
+                   autocomplete="current-password" />
+            <button type="button" class="toggle-pw" (click)="togglePassword()">
+              {{ showPassword ? '🙈' : '👁️' }}
+            </button>
+          </div>
+        </div>
+
+        <!-- Remember Me -->
+        <div class="remember-row">
+          <label class="remember-label">
+            <input type="checkbox" /> Remember me
+          </label>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="btn-login" [class.loading]="isLoading">
+          @if (isLoading) {
+            <span class="spinner"></span> Signing in...
+          } @else {
+            Sign In →
+          }
+        </button>
+
+      </form>
+
+      <!-- Divider -->
+      <div class="divider">
+        <span>or continue with</span>
+      </div>
+
+      <!-- Social Login -->
+      <div class="social-btns">
+        <button class="social-btn github">
+          <span>🐙</span> GitHub
+        </button>
+        <button class="social-btn linkedin">
+          <span>💼</span> LinkedIn
+        </button>
+      </div>
+
+      <!-- Sign Up -->
+      <p class="signup-link">
+        Don't have an account?
+        <a routerLink="/">Sign up for free</a>
+      </p>
+
+    </div>
+
+    <!-- Back Link -->
+    <a routerLink="/" class="back-home">← Back to Home</a>
+
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="login-right">
+    <div class="right-content">
+      <div class="robot-wrap">
+        <div class="glow-ring"></div>
+        <div class="robot-emoji">🤖</div>
+      </div>
+      <h2>Your Intelligent <span class="gradient-text">HR Partner</span></h2>
+      <p>Sign in to access UC — your AI-powered HR assistant.
+         Search documents, get insights, and make smarter HR decisions.</p>
+
+      <div class="feature-list">
+        <div class="feature-item">
+          <span class="f-icon">🔍</span>
+          <span>Smart HR Document Search</span>
+        </div>
+        <div class="feature-item">
+          <span class="f-icon">📊</span>
+          <span>Deep HR Analytics & Insights</span>
+        </div>
+        <div class="feature-item">
+          <span class="f-icon">🤖</span>
+          <span>AI-Powered HR Assistant</span>
+        </div>
+        <div class="feature-item">
+          <span class="f-icon">🔒</span>
+          <span>Enterprise-Grade Security</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

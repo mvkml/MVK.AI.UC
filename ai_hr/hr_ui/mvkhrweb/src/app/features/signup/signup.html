@@ -1,0 +1,223 @@
+<!-- Sign Up Page — UC Your Copilot -->
+<div class="signup-wrapper">
+
+  <!-- LEFT PANEL -->
+  <div class="signup-left">
+
+    <!-- Logo -->
+    <div class="logo">
+      <a routerLink="/" class="logo-link">
+        <svg viewBox="0 0 40 40" fill="none" width="36" height="36">
+          <rect x="5"  y="5"  width="13" height="13" rx="2" fill="#7C6FFF"/>
+          <rect x="22" y="5"  width="13" height="13" rx="2" fill="#7C6FFF" opacity="0.6"/>
+          <rect x="5"  y="22" width="13" height="13" rx="2" fill="#7C6FFF" opacity="0.6"/>
+          <rect x="22" y="22" width="13" height="13" rx="2" fill="#7C6FFF"/>
+        </svg>
+        <div class="logo-text">
+          <span class="logo-name">UC</span>
+          <span class="logo-sub">Your Copilot</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Card -->
+    <div class="signup-card">
+
+      <!-- Header -->
+      <div class="card-header">
+        <h1>Create Account 🚀</h1>
+        <p>Join UC — Your intelligent HR Copilot</p>
+      </div>
+
+      <!-- Step Indicator -->
+      <div class="step-indicator">
+        <div class="step-item" [class.active]="step >= 1" [class.done]="step > 1">
+          <div class="step-dot">{{ step > 1 ? '✓' : '1' }}</div>
+          <span>Your Info</span>
+        </div>
+        <div class="step-line" [class.done]="step > 1"></div>
+        <div class="step-item" [class.active]="step >= 2">
+          <div class="step-dot">2</div>
+          <span>Security</span>
+        </div>
+      </div>
+
+      <!-- Error / Success -->
+      @if (errorMsg) {
+        <div class="error-msg">⚠️ {{ errorMsg }}</div>
+      }
+      @if (successMsg) {
+        <div class="success-msg">{{ successMsg }}</div>
+      }
+
+      <!-- STEP 1: Personal Info -->
+      @if (step === 1) {
+        <div class="form-step">
+          <div class="form-group">
+            <label>Full Name</label>
+            <div class="input-wrap">
+              <span class="input-icon">👤</span>
+              <input type="text" [(ngModel)]="form.fullName"
+                     name="fullName" placeholder="Vishnu Kiran" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Email Address</label>
+            <div class="input-wrap">
+              <span class="input-icon">📧</span>
+              <input type="email" [(ngModel)]="form.email"
+                     name="email" placeholder="your@email.com" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Company / Organisation</label>
+            <div class="input-wrap">
+              <span class="input-icon">🏢</span>
+              <input type="text" [(ngModel)]="form.company"
+                     name="company" placeholder="Your company name" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Your Role</label>
+            <div class="input-wrap select-wrap">
+              <span class="input-icon">💼</span>
+              <select [(ngModel)]="form.role" name="role">
+                <option value="" disabled selected>Select your role</option>
+                @for (role of roles; track role) {
+                  <option [value]="role">{{ role }}</option>
+                }
+              </select>
+            </div>
+          </div>
+
+          <button type="button" class="btn-next" (click)="nextStep()">
+            Continue →
+          </button>
+        </div>
+      }
+
+      <!-- STEP 2: Password -->
+      @if (step === 2 && !successMsg) {
+        <form class="form-step" (ngSubmit)="onSubmit()">
+
+          <div class="form-group">
+            <label>Password</label>
+            <div class="input-wrap">
+              <span class="input-icon">🔒</span>
+              <input [type]="showPassword ? 'text' : 'password'"
+                     [(ngModel)]="form.password" name="password"
+                     placeholder="Min. 8 characters" />
+              <button type="button" class="toggle-pw" (click)="showPassword = !showPassword">
+                {{ showPassword ? '🙈' : '👁️' }}
+              </button>
+            </div>
+            <!-- Password Strength -->
+            @if (form.password) {
+              <div class="pw-strength">
+                <div class="pw-bar">
+                  <div class="pw-fill"
+                       [style.width]="getPasswordStrength().width"
+                       [style.background]="getPasswordStrength().color">
+                  </div>
+                </div>
+                <span [style.color]="getPasswordStrength().color">
+                  {{ getPasswordStrength().label }}
+                </span>
+              </div>
+            }
+          </div>
+
+          <div class="form-group">
+            <label>Confirm Password</label>
+            <div class="input-wrap">
+              <span class="input-icon">🔑</span>
+              <input [type]="showConfirmPassword ? 'text' : 'password'"
+                     [(ngModel)]="form.confirmPassword" name="confirmPassword"
+                     placeholder="Re-enter your password" />
+              <button type="button" class="toggle-pw" (click)="showConfirmPassword = !showConfirmPassword">
+                {{ showConfirmPassword ? '🙈' : '👁️' }}
+              </button>
+            </div>
+          </div>
+
+          <p class="terms">
+            By signing up, you agree to our
+            <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+          </p>
+
+          <div class="btn-row">
+            <button type="button" class="btn-back" (click)="prevStep()">← Back</button>
+            <button type="submit" class="btn-signup" [class.loading]="isLoading">
+              @if (isLoading) {
+                <span class="spinner"></span> Creating...
+              } @else {
+                Create Account 🚀
+              }
+            </button>
+          </div>
+
+        </form>
+      }
+
+      <!-- Divider -->
+      @if (!successMsg) {
+        <div class="divider"><span>or sign up with</span></div>
+        <div class="social-btns">
+          <button class="social-btn github"><span>🐙</span> GitHub</button>
+          <button class="social-btn linkedin"><span>💼</span> LinkedIn</button>
+        </div>
+      }
+
+      <!-- Login Link -->
+      <p class="login-link">
+        Already have an account?
+        <a routerLink="/login">Sign in</a>
+      </p>
+
+    </div>
+
+    <a routerLink="/" class="back-home">← Back to Home</a>
+
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="signup-right">
+    <div class="right-content">
+
+      <div class="robot-wrap">
+        <div class="glow-ring"></div>
+        <div class="robot-emoji">🤖</div>
+      </div>
+
+      <h2>Start Your <span class="gradient-text">HR Journey</span></h2>
+      <p>Join UC today and transform how your team manages HR — smarter, faster, and with AI precision.</p>
+
+      <div class="stats-row">
+        <div class="stat">
+          <span class="stat-val gradient-text">7+</span>
+          <span class="stat-label">AI Agents</span>
+        </div>
+        <div class="stat">
+          <span class="stat-val gradient-text">100%</span>
+          <span class="stat-label">AI Powered</span>
+        </div>
+        <div class="stat">
+          <span class="stat-val gradient-text">Free</span>
+          <span class="stat-label">To Start</span>
+        </div>
+      </div>
+
+      <div class="perks">
+        <div class="perk">✅ No credit card required</div>
+        <div class="perk">✅ Instant access after signup</div>
+        <div class="perk">✅ AI-powered from day one</div>
+        <div class="perk">✅ Enterprise-grade security</div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

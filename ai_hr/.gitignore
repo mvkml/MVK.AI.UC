@@ -1,0 +1,17 @@
+# Dependencies (regenerated via npm install)
+node_modules/
+
+# Build output / cache
+dist/
+.angular/
+
+# Graphify cache (regenerable, not source)
+graphify-out/cache/
+
+# Real secrets — only *.env.example is tracked
+*.env
+!*.env.example
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
