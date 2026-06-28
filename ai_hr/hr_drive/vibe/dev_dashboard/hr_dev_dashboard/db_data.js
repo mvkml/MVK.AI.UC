@@ -11,11 +11,12 @@ const dbDetails = {
         columns: [
           { name: 'RoleId',   type: 'int',          nullable: false, key: 'pk' },
           { name: 'RoleName', type: 'nvarchar(100)', nullable: false, key: 'uq' },
+          { name: 'OrderId',  type: 'int',          nullable: false, key: '' },
         ],
       },
       {
         name: 'Users',
-        rowCount: 0,
+        rowCount: 2, // manual Sign Up test data via curl
         columns: [
           { name: 'UserId',       type: 'int',           nullable: false, key: 'pk' },
           { name: 'FullName',     type: 'nvarchar(150)', nullable: false, key: '' },

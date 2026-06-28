@@ -5,7 +5,7 @@ namespace AI.HR.BL;
 
 /// <summary>
 /// Business logic for user operations. Maps UserRequest to UserItem
-/// and delegates persistence to UserRepository.
+/// and delegates persistence to IUserRepository.
 /// </summary>
 public class UserBL : IUserBL
 {

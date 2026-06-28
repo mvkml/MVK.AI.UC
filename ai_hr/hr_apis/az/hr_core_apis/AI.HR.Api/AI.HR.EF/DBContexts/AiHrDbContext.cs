@@ -17,6 +17,7 @@ namespace AI.HR.EF.DBContexts
                 e.HasKey(r => r.RoleId);
                 e.Property(r => r.RoleName).IsRequired().HasMaxLength(100);
                 e.HasIndex(r => r.RoleName).IsUnique();
+                e.Property(r => r.OrderId).IsRequired();
             });
 
             modelBuilder.Entity<User>(e =>
@@ -34,13 +35,13 @@ namespace AI.HR.EF.DBContexts
             });
 
             modelBuilder.Entity<Role>().HasData(
-                new Role { RoleId = 1, RoleName = "HR Manager" },
-                new Role { RoleId = 2, RoleName = "HR Executive" },
-                new Role { RoleId = 3, RoleName = "Recruiter" },
-                new Role { RoleId = 4, RoleName = "Payroll Manager" },
-                new Role { RoleId = 5, RoleName = "Team Lead" },
-                new Role { RoleId = 6, RoleName = "Developer" },
-                new Role { RoleId = 7, RoleName = "Other" }
+                new Role { RoleId = 1, RoleName = "HR Manager", OrderId = 1 },
+                new Role { RoleId = 2, RoleName = "HR Executive", OrderId = 2 },
+                new Role { RoleId = 3, RoleName = "Recruiter", OrderId = 3 },
+                new Role { RoleId = 4, RoleName = "Payroll Manager", OrderId = 4 },
+                new Role { RoleId = 5, RoleName = "Team Lead", OrderId = 5 },
+                new Role { RoleId = 6, RoleName = "Developer", OrderId = 6 },
+                new Role { RoleId = 7, RoleName = "Other", OrderId = 7 }
             );
         }
     }

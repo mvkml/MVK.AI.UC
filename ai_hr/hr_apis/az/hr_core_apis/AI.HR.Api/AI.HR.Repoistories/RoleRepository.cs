@@ -18,10 +18,10 @@ public class RoleRepository : IRoleRepository
         _context = context;
     }
 
-    /// <summary>Returns all roles.</summary>
+    /// <summary>Returns all roles, ordered by OrderId.</summary>
     public async Task<List<RoleItem>> GetAll()
     {
-        var entities = await _context.Roles.ToListAsync();
+        var entities = await _context.Roles.OrderBy(r => r.OrderId).ToListAsync();
         return entities.Select(ToModel).ToList();
     }
 
@@ -29,5 +29,6 @@ public class RoleRepository : IRoleRepository
     {
         RoleId = entity.RoleId,
         RoleName = entity.RoleName,
+        OrderId = entity.OrderId,
     };
 }

@@ -61,6 +61,7 @@ const apiDetails = {
         heading: 'Migrations',
         items: [
           { name: '20260628134601_InitialCreate', path: 'Migrations/', real: true },
+          { name: '20260628182755_AddRoleOrderId', path: 'Migrations/', real: true },
         ],
       },
     ],
@@ -86,7 +87,7 @@ const apiDetails = {
       {
         heading: 'Roles',
         items: [
-          { name: 'RoleItem (single role record)', path: 'RoleItem.cs', real: true },
+          { name: 'RoleItem (single role record, incl. OrderId)', path: 'RoleItem.cs', real: true },
           { name: 'RolesModel (RoleItems)', path: 'RolesModel.cs', real: true },
         ],
       },
@@ -105,7 +106,7 @@ const apiDetails = {
       {
         heading: 'Roles',
         items: [
-          { name: 'IRoleRepository / RoleRepository — GetAll', path: 'RoleRepository.cs', real: true },
+          { name: 'IRoleRepository / RoleRepository — GetAll (ordered by OrderId)', path: 'RoleRepository.cs', real: true },
         ],
       },
     ],

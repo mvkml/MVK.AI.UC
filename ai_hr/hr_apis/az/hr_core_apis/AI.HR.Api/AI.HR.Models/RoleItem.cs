@@ -10,4 +10,7 @@ public class RoleItem
 
     /// <summary>Display name of the role.</summary>
     public string RoleName { get; set; } = string.Empty;
+
+    /// <summary>Sort order for displaying roles (e.g. in a dropdown).</summary>
+    public int OrderId { get; set; }
 }
