@@ -55,6 +55,24 @@ const apiDetails = {
       },
     ],
   },
+  'AI.HR.Models': {
+    description: 'API response models — wraps EF entities for use by controllers.',
+    groups: [
+      {
+        heading: 'Base',
+        items: [
+          { name: 'BaseModel (IsNotValid, Message)', path: 'BaseModel.cs', real: true },
+        ],
+      },
+      {
+        heading: 'Users',
+        items: [
+          { name: 'UserItem (single user record)', path: 'UserItem.cs', real: true },
+          { name: 'UsersModel (UserItem / UserItems)', path: 'UsersModel.cs', real: true },
+        ],
+      },
+    ],
+  },
   'FastAPI': {
     description: 'AI-only functionality (Claude agents, Graphify backend). Scope and location not yet defined.',
     groups: [
