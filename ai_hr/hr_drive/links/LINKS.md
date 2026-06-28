@@ -2,13 +2,13 @@
 
 Running list of links/paths relevant to the ai_hr project. Add new ones as they come up.
 
-## Dev Server (mvkhrweb)
+## Dev Server (aihrweb)
 - App root: http://localhost:4201/
 - Dashboard: http://localhost:4201/dashboard
 - Employees page: http://localhost:4201/dashboard/employees
 - Upload Documents: http://localhost:4201/dashboard/upload
 
-> Note: server was running on port 4201 but has since stopped (session teardown). Restart with `npx ng serve --port 4201` from `hr_ui/mvkhrweb`.
+> Note: server was running on port 4201 but has since stopped (session teardown). Restart with `npx ng serve --port 4201` from `hr_ui/aihrweb`.
 
 ## Internal Dashboards (static HTML, open directly in browser)
 - Dev Dashboard (live): `C:\git\v\ai_hr\hr_drive\vibe\dev_dashboard\hr_dev_dashboard\index.html`

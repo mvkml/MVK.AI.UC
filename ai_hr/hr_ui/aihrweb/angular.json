@@ -7,7 +7,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "mvkhrweb": {
+    "aihrweb": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -89,10 +89,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "mvkhrweb:build:production"
+              "buildTarget": "aihrweb:build:production"
             },
             "development": {
-              "buildTarget": "mvkhrweb:build:development"
+              "buildTarget": "aihrweb:build:development"
             }
           },
           "defaultConfiguration": "development"

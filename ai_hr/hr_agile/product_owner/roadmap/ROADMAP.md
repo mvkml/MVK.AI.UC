@@ -13,7 +13,7 @@ High-level plan for the mvkhr project.
 - Attendance tracking
 
 ## Phase 3 - UI Development (Sprint 5-6)
-- HR Web UI (mvkhrweb)
+- HR Web UI (aihrweb)
 - HR Mobile App (mvkhrmobile)
 
 ## Phase 4 - AI Agents (Sprint 7-8)
