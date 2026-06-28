@@ -34,7 +34,9 @@ const agileItems = [
 
   // ── Database ──
   { id: 'TASK-D01', type: 'task', title: 'Create AI_HR / AI_INS / AI_DEV_DASHBOARD databases (LocalDB)', module: 'Database', priority: 'Medium', status: 'Completed' },
-  { id: 'TASK-D02', type: 'task', title: 'Design hr_sql schema (tables, EF models)', module: 'Database', priority: 'Medium', status: 'Pending' },
+  { id: 'TASK-D02', type: 'task', title: 'Design Users/Roles schema for Signup+Login', module: 'Database', priority: 'High', status: 'Completed' },
+  { id: 'TASK-N03', type: 'task', parent: 'PB006', title: 'Wire AI.HR.EF: entities, DbContext, migration → Users/Roles tables in AI_HR', module: 'API', priority: 'High', status: 'Completed' },
+  { id: 'TASK-N04', type: 'task', parent: 'PB006', title: 'Build Signup/Login Controllers + BL (replace Angular mock login)', module: 'API', priority: 'High', status: 'Pending' },
 
   // ── DevOps ──
   { id: 'TASK-O01', type: 'task', title: 'git init ai_hr + initial commit',          module: 'DevOps', priority: 'Medium', status: 'Completed' },
