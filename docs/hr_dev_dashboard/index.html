@@ -31,9 +31,16 @@
     background: var(--card); border-right: 1px solid var(--border);
     padding: 24px 16px; display: flex; flex-direction: column; gap: 4px;
   }
-  .sidebar .brand { margin-bottom: 20px; padding: 0 8px; }
+  .sidebar .brand { margin-bottom: 8px; padding: 0 8px; }
   .sidebar .brand h1 { margin: 0; font-size: 16px; }
   .sidebar .brand p  { margin: 2px 0 0; font-size: 11px; color: var(--muted); }
+  .home-btn {
+    display: flex; align-items: center; gap: 8px; width: 100%;
+    background: none; border: none; color: var(--muted);
+    padding: 8px 12px; margin-bottom: 16px; border-radius: 10px;
+    font-size: 12px; font-weight: 600; cursor: pointer; text-align: left;
+  }
+  .home-btn:hover { background: rgba(124,111,255,0.08); color: var(--white); }
   .tab-btn {
     display: flex; align-items: center; gap: 10px;
     background: none; border: none; color: var(--muted);
@@ -132,6 +139,7 @@
       <h1>🧭 ai_hr</h1>
       <p>Dev Dashboard</p>
     </div>
+    <button class="home-btn" onclick="goHome()">🏠 Home</button>
     <button class="tab-btn active" data-tab="team-status"><span class="icon">🧑‍🤝‍🧑</span> Team Status</button>
     <button class="tab-btn" data-tab="current-work"><span class="icon">🔄</span> Current Work</button>
     <button class="tab-btn" data-tab="agile"><span class="icon">📋</span> Agile</button>
@@ -251,6 +259,15 @@
 <script src="agent_status.js"></script>
 <script src="agile_data.js"></script>
 <script>
+  // ── Home button: back if we navigated here, else fall back to the UC landing page ──
+  function goHome() {
+    if (window.history.length > 1) {
+      window.history.back();
+    } else {
+      window.location.href = '../index.html';
+    }
+  }
+
   // ── Tab switching ──
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
