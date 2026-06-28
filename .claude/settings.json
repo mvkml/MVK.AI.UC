@@ -1,7 +1,15 @@
 {
   "permissions": {
     "allow": [
-      "Bash(echo \"exit:$?\")"
+      "Bash(echo \"exit:$?\")",
+      "Bash(git check-ignore *)",
+      "Bash(where sqlcmd *)",
+      "Bash(where SqlLocalDB)",
+      "Bash(SqlLocalDB.exe info *)",
+      "Bash(sqlcmd -S \"\\(localdb\\)\\\\MSSQLLocalDB\" -E -Q \"SELECT name FROM sys.databases\")",
+      "Bash(sqlcmd -S \"\\(localdb\\)\\\\MSSQLLocalDB\" -E -d AI_HR -Q \"SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES\")",
+      "Bash(sqlcmd -S \"\\(localdb\\)\\\\MSSQLLocalDB\" -E -d AI_INS -Q \"SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES\")",
+      "Bash(sqlcmd -S \"\\(localdb\\)\\\\MSSQLLocalDB\" -E -Q \"SELECT name FROM sys.databases WHERE name = 'AI_DEV_DASHBOARD'\")"
     ]
   }
 }

@@ -3,7 +3,8 @@
 
 const agileItems = [
   // ── Backlog items (from BACKLOG.md) ──
-  { id: 'PB001', type: 'backlog', title: 'Setup FastAPI backend',        module: 'API',      priority: 'High',   status: 'Pending' },
+  { id: 'PB001', type: 'backlog', title: 'Setup FastAPI backend (AI functionality, scope TBD)', module: 'API', priority: 'High', status: 'Pending' },
+  { id: 'PB006', type: 'backlog', title: 'Setup ASP.NET Core REST API (non-AI functionality)', module: 'API', priority: 'High', status: 'In Progress' },
   { id: 'PB002', type: 'backlog', title: 'Integrate Graphify',           module: 'Agile',    priority: 'High',   status: 'In Progress' },
   { id: 'PB003', type: 'backlog', title: 'Create employee management',   module: 'UI',       priority: 'Medium', status: 'In Progress' },
   { id: 'PB004', type: 'backlog', title: 'Build HR web UI',              module: 'UI',       priority: 'Medium', status: 'In Progress' },
@@ -22,18 +23,24 @@ const agileItems = [
   // ── Tasks under PB001 (FastAPI backend) ──
   { id: 'TASK001', type: 'task', parent: 'PB001', title: 'Setup FastAPI backend skeleton',   module: 'API', priority: 'High', status: 'Pending' },
 
+  // ── Tasks under PB006 (ASP.NET Core REST API) ──
+  { id: 'TASK-N01', type: 'task', parent: 'PB006', title: 'Scaffold AI.HR.Api solution (Api/BL/DAL/EF layers)', module: 'API', priority: 'High', status: 'Completed' },
+  { id: 'TASK-N02', type: 'task', parent: 'PB006', title: 'Build Employees Controller + BL + DAL + EF model',  module: 'API', priority: 'High', status: 'Pending' },
+
   // ── Tasks under PB002 (Graphify) ──
   { id: 'TASK004', type: 'task', parent: 'PB002', title: 'Graphify research',                module: 'Agile', priority: 'High', status: 'Completed' },
   { id: 'TASK-G01', type: 'task', parent: 'PB002', title: 'Extract ai_hr knowledge graph (Ollama, partial quality)', module: 'Agile', priority: 'High', status: 'Completed' },
   { id: 'TASK-G02', type: 'task', parent: 'PB002', title: 'Re-extract with a cloud backend for better quality',      module: 'Agile', priority: 'Medium', status: 'Pending' },
 
   // ── Database ──
-  { id: 'TASK-D01', type: 'task', title: 'Design hr_sql / hr_pg / hr_cosmos schema', module: 'Database', priority: 'Medium', status: 'Pending' },
+  { id: 'TASK-D01', type: 'task', title: 'Create AI_HR / AI_INS / AI_DEV_DASHBOARD databases (LocalDB)', module: 'Database', priority: 'Medium', status: 'Completed' },
+  { id: 'TASK-D02', type: 'task', title: 'Design hr_sql schema (tables, EF models)', module: 'Database', priority: 'Medium', status: 'Pending' },
 
   // ── DevOps ──
-  { id: 'TASK-O01', type: 'task', title: 'git init ai_hr + initial commit',          module: 'DevOps', priority: 'Medium', status: 'Pending' },
+  { id: 'TASK-O01', type: 'task', title: 'git init ai_hr + initial commit',          module: 'DevOps', priority: 'Medium', status: 'Completed' },
 
   // ── Agile process itself ──
-  { id: 'TASK-A01', type: 'task', title: 'Create real .claude/agents subagents (7 roles)', module: 'Agile', priority: 'High', status: 'Completed' },
+  { id: 'TASK-A01', type: 'task', title: 'Create real .claude/agents subagents (8 roles incl. dev-dotnet)', module: 'Agile', priority: 'High', status: 'Completed' },
   { id: 'TASK-A02', type: 'task', title: 'Add tech_interviewer + dev_qa roles',            module: 'Agile', priority: 'Low', status: 'Pending' },
+  { id: 'TASK-A03', type: 'task', title: 'ADR002: split backend (ASP.NET Core non-AI + FastAPI AI)', module: 'Agile', priority: 'High', status: 'Completed' },
 ];

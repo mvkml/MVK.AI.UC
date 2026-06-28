@@ -4,7 +4,9 @@ AI co-pilot for the HR process (internal project name: `mvkhr`). Part of a 3-pro
 
 ## Folder Structure
 - `hr_agile/` — agile process: team roles, backlog, sprints, ADRs, worklogs (see below)
-- `hr_apis/` — FastAPI backend (not started yet)
+- `hr_apis/` — split backend (see ADR002):
+  - `hr_apis/az/hr_core_apis/AI.HR.Api/` — ASP.NET Core REST API, non-AI functionality (active: `AI.HR.Api`/`AI.HR.BL`/`AI.HR.DAL`/`AI.HR.EF`)
+  - FastAPI service — AI-only functionality, scope/location TBD
 - `hr_ui/aihrweb/` — Angular web frontend (active development)
 - `hr_data_source/` — databases: `hr_sql/`, `hr_pg/`, `hr_cosmos/` (empty so far)
 - `hr_devops/` — CI/CD, infra (empty so far)
@@ -20,7 +22,8 @@ This project is worked on through defined agile roles rather than one generic as
 | `product-owner` | Backlog, roadmap, user stories, acceptance criteria |
 | `scrum-master` | Sprints, tasks, retrospectives, enforces worklog discipline |
 | `dev-angular` | `hr_ui/aihrweb`, `hr_ui/mvkhrapp` |
-| `dev-fastapi` | `hr_apis/` |
+| `dev-dotnet` | `hr_apis/az/hr_core_apis/AI.HR.Api/` (non-AI REST API) |
+| `dev-fastapi` | FastAPI service (AI-only functionality, scope TBD) |
 | `dev-sql` | `hr_data_source/` |
 | `dev-devops` | `hr_devops/`, CI/CD, `.gitignore`/secrets hygiene |
 
@@ -31,5 +34,7 @@ Every agent logs completed work to `hr_agile/worklogs/<role>/YYYYMMDD_HHMMSS_sub
 
 ## Current State (as of last update)
 - Frontend (`aihrweb`): landing, about, services, portfolio, contact, login, signup pages built. Dashboard shell with chat home, document upload, and employees pages built. Recruitment, payroll, reports, agents pages are linked in the sidebar but **not yet built**.
-- Backend (`hr_apis`), database (`hr_data_source`), and devops (`hr_devops`) are all empty — no work started.
-- `hr_agile/team/` has 7 of the 9 master-template roles (`tech_interviewer` and `dev_qa` not yet added).
+- Backend: ASP.NET Core solution `AI.HR.Api` scaffolded (default Controllers/Program.cs, no real endpoints yet). FastAPI service not started — scope TBD.
+- Database (`hr_data_source/hr_sql`): `AI_HR` database exists on `(localdb)\MSSQLLocalDB` via Windows Auth, but has no tables yet.
+- Devops (`hr_devops`) is empty — no work started.
+- `hr_agile/team/` has 8 roles (7 original + `dev_dotnet`); `tech_interviewer` and `dev_qa` from the 9-role master template still not added.
