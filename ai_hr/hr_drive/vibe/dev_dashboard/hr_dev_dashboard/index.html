@@ -64,6 +64,29 @@
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
   .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; transition: all .2s; }
   .card:hover { border-color: var(--purple); transform: translateY(-2px); }
+  .card[data-key] { cursor: pointer; }
+  .card[data-key]:hover { box-shadow: 0 0 0 1px var(--purple); }
+  .card[data-key] h3::after { content: "→"; margin-left: auto; color: var(--muted); font-size: 13px; }
+  .card[data-key] h3 { display: flex; }
+
+  .structure-detail {
+    margin-top: 22px; background: var(--card); border: 1px solid var(--purple);
+    border-radius: 14px; padding: 20px 24px;
+  }
+  .structure-detail .sd-head {
+    display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;
+  }
+  .structure-detail .sd-title { font-size: 16px; font-weight: 700; }
+  .structure-detail .sd-close {
+    background: none; border: 1px solid var(--border); color: var(--muted);
+    border-radius: 8px; padding: 4px 12px; font-size: 12px; cursor: pointer;
+  }
+  .structure-detail .sd-close:hover { color: var(--white); border-color: var(--purple); }
+  .structure-detail .sd-group { margin-bottom: 14px; }
+  .structure-detail .sd-group h4 { font-size: 12px; color: var(--blue); margin: 0 0 8px; text-transform: uppercase; letter-spacing: .5px; }
+  .structure-detail .sd-group ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+  .structure-detail .sd-group li { font-size: 13px; color: var(--muted); padding-left: 16px; position: relative; }
+  .structure-detail .sd-group li::before { content: "•"; position: absolute; left: 0; color: var(--purple); }
   .card h3 { margin: 0 0 10px; font-size: 16px; display: flex; align-items: center; gap: 8px; }
   .card h3 .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--gradient); flex-shrink: 0; }
   .card ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
@@ -184,8 +207,8 @@
         <p>Static navigation map of the ai_hr project structure. Generated manually — update when folders change.</p>
       </header>
 
-      <div class="grid">
-        <div class="card">
+      <div class="grid" id="structure-grid">
+        <div class="card" data-key="hr_agile">
           <h3><span class="dot"></span> hr_agile</h3>
           <ul>
             <li>team/ — role agent definitions</li>
@@ -197,7 +220,7 @@
           </ul>
         </div>
 
-        <div class="card">
+        <div class="card" data-key="hr_apis">
           <h3><span class="dot"></span> hr_apis</h3>
           <ul>
             <li>az/hr_core_apis/AI.HR.Api/ — ASP.NET Core (non-AI): EF Core wired, Users/Roles migration applied, Controllers not built yet</li>
@@ -205,7 +228,7 @@
           </ul>
         </div>
 
-        <div class="card">
+        <div class="card" data-key="hr_data_source">
           <h3><span class="dot"></span> hr_data_source</h3>
           <ul>
             <li>hr_sql/ — AI_HR db (LocalDB, Windows Auth): Users + Roles tables live (EF Core migration, Roles seeded)</li>
@@ -214,12 +237,12 @@
           </ul>
         </div>
 
-        <div class="card">
+        <div class="card" data-key="hr_devops">
           <h3><span class="dot"></span> hr_devops</h3>
           <ul><li class="empty">no longer a separate git repo — merged into ai_hr; empty otherwise</li></ul>
         </div>
 
-        <div class="card">
+        <div class="card" data-key="hr_drive">
           <h3><span class="dot"></span> hr_drive</h3>
           <ul>
             <li>credentials/ — db connection settings (.env.example)</li>
@@ -228,7 +251,7 @@
           </ul>
         </div>
 
-        <div class="card">
+        <div class="card" data-key="hr_ui">
           <h3><span class="dot"></span> hr_ui</h3>
           <ul>
             <li>aihrweb/ — Angular web app (active)</li>
@@ -254,13 +277,16 @@
         </div>
       </div>
 
-      <p class="legend">Path: C:\git\v\ai_hr\hr_drive\vibe\hr_dev_dashboard\index.html</p>
+      <div id="structure-detail" class="structure-detail" style="display:none;"></div>
+
+      <p class="legend">Path: C:\git\v\ai_hr\hr_drive\vibe\dev_dashboard\hr_dev_dashboard\index.html</p>
     </section>
 
   </main>
 
 <script src="agent_status.js"></script>
 <script src="agile_data.js"></script>
+<script src="structure_data.js"></script>
 <script>
   // ── Home button: back if we navigated here, else fall back to the UC landing page ──
   function goHome() {
@@ -366,6 +392,35 @@
   });
 
   renderKanban();
+
+  // ── Project Structure drill-down ──
+  const structureGrid   = document.getElementById('structure-grid');
+  const structureDetail = document.getElementById('structure-detail');
+
+  structureGrid.addEventListener('click', e => {
+    const card = e.target.closest('.card[data-key]');
+    if (!card) return;
+    const detail = structureDetails[card.dataset.key];
+    if (!detail) return;
+
+    structureDetail.innerHTML = `
+      <div class="sd-head">
+        <span class="sd-title">${detail.label}</span>
+        <button class="sd-close" id="sd-close-btn">✕ Close</button>
+      </div>
+      ${detail.groups.map(g => `
+        <div class="sd-group">
+          <h4>${g.heading}</h4>
+          <ul>${g.items.map(i => `<li>${i}</li>`).join('')}</ul>
+        </div>
+      `).join('')}
+    `;
+    structureDetail.style.display = 'block';
+    document.getElementById('sd-close-btn').addEventListener('click', () => {
+      structureDetail.style.display = 'none';
+    });
+    structureDetail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
 </script>
 
 </body>
