@@ -67,6 +67,7 @@
   .card[data-key] { cursor: pointer; }
   .card[data-key]:hover { box-shadow: 0 0 0 1px var(--purple); }
   .card[data-key] h3::after { content: "→"; margin-left: auto; color: var(--muted); font-size: 13px; }
+  .card[data-key="hr_apis"] h3::after, .card[data-key="hr_data_source"] h3::after { content: "↗ open page"; font-size: 11px; }
   .card[data-key] h3 { display: flex; }
 
   .structure-detail {
@@ -397,9 +398,17 @@
   const structureGrid   = document.getElementById('structure-grid');
   const structureDetail = document.getElementById('structure-detail');
 
+  const PAGE_LINKS = { 'hr_apis': 'api_explorer.html', 'hr_data_source': 'db_explorer.html' };
+
   structureGrid.addEventListener('click', e => {
     const card = e.target.closest('.card[data-key]');
     if (!card) return;
+
+    if (PAGE_LINKS[card.dataset.key]) {
+      window.location.href = PAGE_LINKS[card.dataset.key];
+      return;
+    }
+
     const detail = structureDetails[card.dataset.key];
     if (!detail) return;
 

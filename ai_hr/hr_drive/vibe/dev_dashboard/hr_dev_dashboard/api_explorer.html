@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>ai_hr — API Explorer</title>
+<style>
+  :root {
+    --bg: #0a0e2a; --card: #0d1240; --purple: #7C6FFF; --blue: #4fc3f7;
+    --green: #68d391; --orange: #f6ad55; --red: #fc8181; --white: #ffffff;
+    --muted: #a0aec0; --border: rgba(124,111,255,0.15);
+    --gradient: linear-gradient(135deg, #7C6FFF, #4fc3f7);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { font-family: -apple-system, Segoe UI, Roboto, sans-serif; background: var(--bg); color: var(--white); display: flex; }
+
+  .sidebar { width: 240px; flex-shrink: 0; min-height: 100vh; background: var(--card); border-right: 1px solid var(--border); padding: 24px 16px; }
+  .sidebar .brand { margin-bottom: 8px; padding: 0 8px; }
+  .sidebar .brand h1 { margin: 0; font-size: 16px; }
+  .sidebar .brand p  { margin: 2px 0 0; font-size: 11px; color: var(--muted); }
+  .home-btn {
+    display: flex; align-items: center; gap: 8px; width: 100%; background: none; border: none;
+    color: var(--muted); padding: 8px 12px; margin-bottom: 16px; border-radius: 10px;
+    font-size: 12px; font-weight: 600; cursor: pointer; text-align: left;
+  }
+  .home-btn:hover { background: rgba(124,111,255,0.08); color: var(--white); }
+  .nav-section-label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin: 16px 8px 8px; }
+  .layer-btn {
+    display: flex; align-items: center; gap: 10px; width: 100%; background: none; border: none;
+    color: var(--muted); padding: 10px 12px; border-radius: 10px; font-size: 13px; font-weight: 600;
+    cursor: pointer; text-align: left; transition: all .15s;
+  }
+  .layer-btn:hover  { background: rgba(124,111,255,0.08); color: var(--white); }
+  .layer-btn.active { background: rgba(124,111,255,0.18); color: var(--white); }
+  .layer-btn .status-dot { width: 7px; height: 7px; border-radius: 50%; margin-left: auto; flex-shrink: 0; }
+  .layer-btn .status-dot.live { background: var(--green); }
+  .layer-btn .status-dot.off  { background: var(--muted); opacity: .4; }
+
+  .main { flex: 1; padding: 32px 40px; overflow-y: auto; }
+  header { margin-bottom: 24px; }
+  header h2 { margin: 0 0 6px; font-size: 20px; }
+  header p  { margin: 0; color: var(--muted); font-size: 13px; }
+
+  .item-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 14px 18px; margin-bottom: 10px; }
+  .item-card .i-name { font-size: 13px; font-weight: 700; }
+  .item-card .i-path { font-size: 11px; color: var(--muted); margin-top: 2px; font-family: monospace; }
+  .item-card .i-tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 8px; border-radius: 20px; margin-top: 6px; }
+  .item-card .i-tag.real  { background: rgba(104,211,145,0.15); color: var(--green); }
+  .item-card .i-tag.stub  { background: rgba(160,174,192,0.15); color: var(--muted); }
+  .section-label { font-size: 13px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin: 28px 0 12px; }
+  .not-started { color: var(--muted); font-style: italic; font-size: 14px; }
+</style>
+</head>
+<body>
+
+  <nav class="sidebar">
+    <div class="brand">
+      <h1>🔌 hr_apis</h1>
+      <p>API Explorer</p>
+    </div>
+    <button class="home-btn" onclick="goHome()">🏠 Home</button>
+
+    <p class="nav-section-label">Layers</p>
+    <button class="layer-btn active" data-layer="AI.HR.Api"><span class="status-dot live"></span>&nbsp;AI.HR.Api</button>
+    <button class="layer-btn" data-layer="AI.HR.BL"><span class="status-dot off"></span>&nbsp;AI.HR.BL</button>
+    <button class="layer-btn" data-layer="AI.HR.DAL"><span class="status-dot off"></span>&nbsp;AI.HR.DAL</button>
+    <button class="layer-btn" data-layer="AI.HR.EF"><span class="status-dot live"></span>&nbsp;AI.HR.EF</button>
+    <button class="layer-btn" data-layer="FastAPI"><span class="status-dot off"></span>&nbsp;FastAPI (AI-only)</button>
+  </nav>
+
+  <main class="main" id="main-area"></main>
+
+<script src="api_data.js"></script>
+<script>
+  function goHome() {
+    if (window.history.length > 1) window.history.back();
+    else window.location.href = 'index.html';
+  }
+
+  const mainArea = document.getElementById('main-area');
+
+  function renderLayer(key) {
+    const layer = apiDetails[key];
+    if (!layer) {
+      mainArea.innerHTML = `<header><h2>${key}</h2></header><p class="not-started">Not started yet.</p>`;
+      return;
+    }
+    mainArea.innerHTML = `
+      <header>
+        <h2>🔌 ${key}</h2>
+        <p>${layer.description}</p>
+      </header>
+      ${layer.groups.map(g => `
+        <p class="section-label">${g.heading}</p>
+        ${g.items.length
+          ? g.items.map(i => `
+              <div class="item-card">
+                <div class="i-name">${i.name}</div>
+                ${i.path ? `<div class="i-path">${i.path}</div>` : ''}
+                <span class="i-tag ${i.real ? 'real' : 'stub'}">${i.real ? 'REAL' : 'SCAFFOLD / STUB'}</span>
+              </div>
+            `).join('')
+          : `<p class="not-started">None yet.</p>`}
+      `).join('')}
+    `;
+  }
+
+  document.querySelectorAll('.layer-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.layer-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderLayer(btn.dataset.layer);
+    });
+  });
+
+  renderLayer('AI.HR.Api');
+</script>
+
+</body>
+</html>
