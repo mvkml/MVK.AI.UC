@@ -8,7 +8,7 @@ namespace AI.HR.Repoistories;
 /// <summary>
 /// Data persistence operations for users, backed by AiHrDbContext.
 /// </summary>
-public class UserRepository
+public class UserRepository : IUserRepository
 {
     private readonly AiHrDbContext _context;
 

@@ -7,12 +7,15 @@ namespace AI.HR.BL;
 /// Business logic for user operations. Maps UserRequest to UserItem
 /// and delegates persistence to UserRepository.
 /// </summary>
-public class UserBL
+public class UserBL : IUserBL
 {
-    private readonly UserRepository _userRepository;
+    /// <summary>Default role assigned to self-service Sign Up ("Other", seeded RoleId 7).</summary>
+    private const int DefaultSignUpRoleId = 7;
 
-    /// <summary>Creates the business layer with the given UserRepository.</summary>
-    public UserBL(UserRepository userRepository)
+    private readonly IUserRepository _userRepository;
+
+    /// <summary>Creates the business layer with the given IUserRepository.</summary>
+    public UserBL(IUserRepository userRepository)
     {
         _userRepository = userRepository;
     }
@@ -38,6 +41,7 @@ public class UserBL
         Email = request.Email,
         Company = request.Company,
         PasswordHash = request.Password,
+        RoleId = DefaultSignUpRoleId,
     };
 
     private static UserResponse ToUserResponse(UserItem userItem) => new()

@@ -17,11 +17,14 @@ Single holder file tracking which SOLID principles are applied where, across the
 - `UserResponse : BaseModel`, `UsersModel : BaseModel` — both are safely substitutable wherever `BaseModel`'s `IsNotValid`/`Message` contract is expected.
 
 ## I — Interface Segregation Principle
-- Not yet applicable — no interfaces introduced yet (see Architect decision in `hr_agile/worklogs/architect/20260628_140000_signup_di_review.md`: concrete classes only until a second implementation or test-mocking need arises).
+- **Update (2026-06-28)**: superseded the earlier "no interfaces yet" decision — user explicitly requested interfaces be introduced now, ahead of future unit testing.
+- `IUserRepository`, `IRoleRepository`, `IUserBL`, `IUserValidationService` each expose only the methods their consumers actually call — no fat/unused-method interfaces.
 
 ## D — Dependency Inversion Principle
-- `UserBL` depends on `UserRepository` via constructor injection rather than constructing it itself.
-- `UserRepository` depends on `AiHrDbContext` via constructor injection.
+- `UsersController` depends on `IUserValidationService`, `IUserBL`, `IRoleRepository` — not the concrete classes.
+- `UserBL` depends on `IUserRepository`, not `UserRepository` directly.
+- `UserRepository`/`RoleRepository` still depend on `AiHrDbContext` via constructor injection (EF Core's own DbContext is the persistence boundary; not abstracted further at this stage).
+- DI registrations in `Program.cs` map interface → concrete implementation (`AddScoped<IUserRepository, UserRepository>()`, etc.).
 - See `design_patterns/DEPENDENCY_INJECTION.md` for full DI implementation details.
 
 ---

@@ -7,7 +7,7 @@ namespace AI.HR.BL;
 /// Validates the UserRequest carried on a UsersModel and sets the
 /// IsNotValid/Message status accordingly.
 /// </summary>
-public class UserValidationService
+public class UserValidationService : IUserValidationService
 {
     private static readonly Regex EmailPattern = new(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.Compiled);
 

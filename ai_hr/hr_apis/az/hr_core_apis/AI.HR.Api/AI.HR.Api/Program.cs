@@ -14,9 +14,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AiHrDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("AiHrDb")));
 
-builder.Services.AddScoped<UserRepository>();
-builder.Services.AddScoped<UserBL>();
-builder.Services.AddScoped<UserValidationService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+builder.Services.AddScoped<IUserBL, UserBL>();
+builder.Services.AddScoped<IUserValidationService, UserValidationService>();
 
 
 var app = builder.Build();
