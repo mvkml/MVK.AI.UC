@@ -16,4 +16,7 @@ public class UserRequest
 
     /// <summary>Plain-text password supplied by the client (hashed before persisting).</summary>
     public string Password { get; set; } = string.Empty;
+
+    /// <summary>Selected role's RoleId (from GET api/users/roles). Defaults to "Other" if not provided.</summary>
+    public int RoleId { get; set; }
 }

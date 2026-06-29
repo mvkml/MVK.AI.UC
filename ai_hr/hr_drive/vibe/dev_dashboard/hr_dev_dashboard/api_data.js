@@ -18,6 +18,7 @@ const apiDetails = {
           { name: 'ConnectionStrings:AiHrDb → AI_HR (LocalDB, Windows Auth)', path: 'appsettings.json', real: true },
           { name: 'DI: IUserRepository, IRoleRepository, IUserBL, IUserValidationService (Scoped)', path: 'Program.cs', real: true },
           { name: 'Swagger/SwaggerUI (Swashbuckle.AspNetCore)', path: 'Program.cs', real: true },
+          { name: 'CORS policy "AllowAngularDev" → http://localhost:4201', path: 'Program.cs', real: true },
         ],
       },
     ],
@@ -31,6 +32,12 @@ const apiDetails = {
         items: [
           { name: 'IUserBL / UserBL.SignUp — UserRequest → UserItem → Repository.Upsert → UserResponse', path: 'UserBL.cs', real: true },
           { name: 'IUserValidationService / UserValidationService.Validate', path: 'UserValidationService.cs', real: true },
+        ],
+      },
+      {
+        heading: 'Security',
+        items: [
+          { name: 'PasswordHasher.Hash — used by UserBL before persisting', path: 'Security/PasswordHasher.cs', real: true },
         ],
       },
     ],
@@ -79,7 +86,7 @@ const apiDetails = {
         heading: 'Users',
         items: [
           { name: 'UserItem (single user record)', path: 'UserItem.cs', real: true },
-          { name: 'UserRequest (Sign Up payload)', path: 'UserRequest.cs', real: true },
+          { name: 'UserRequest (Sign Up payload, incl. RoleId)', path: 'UserRequest.cs', real: true },
           { name: 'UserResponse (Sign Up response)', path: 'UserResponse.cs', real: true },
           { name: 'UsersModel (UserRequest / UserItem / UserItems / UserResponse)', path: 'UsersModel.cs', real: true },
         ],

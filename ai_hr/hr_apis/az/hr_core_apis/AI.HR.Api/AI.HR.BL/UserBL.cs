@@ -1,3 +1,4 @@
+using AI.HR.BL.Security;
 using AI.HR.Models;
 using AI.HR.Repoistories;
 
@@ -40,8 +41,8 @@ public class UserBL : IUserBL
         FullName = request.FullName,
         Email = request.Email,
         Company = request.Company,
-        PasswordHash = request.Password,
-        RoleId = DefaultSignUpRoleId,
+        PasswordHash = PasswordHasher.Hash(request.Password),
+        RoleId = request.RoleId > 0 ? request.RoleId : DefaultSignUpRoleId,
     };
 
     private static UserResponse ToUserResponse(UserItem userItem) => new()

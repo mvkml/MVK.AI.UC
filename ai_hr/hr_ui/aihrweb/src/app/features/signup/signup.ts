@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
+import { RoleItem, UserService } from '../../shared/services/user';
 
 @Component({
   selector: 'app-signup',
@@ -8,25 +10,17 @@ import { RouterLink } from '@angular/router';
   templateUrl: './signup.html',
   styleUrl: './signup.scss',
 })
-export class Signup {
+export class Signup implements OnInit {
   form = {
     fullName: '',
     email: '',
     company: '',
-    role: '',
+    roleId: 0,
     password: '',
     confirmPassword: ''
   };
 
-  roles = [
-    'HR Manager',
-    'HR Executive',
-    'Recruiter',
-    'Payroll Manager',
-    'Team Lead',
-    'Developer',
-    'Other'
-  ];
+  roles: RoleItem[] = [];
 
   showPassword        = false;
   showConfirmPassword = false;
@@ -36,8 +30,21 @@ export class Signup {
 
   step = 1; // 2-step form
 
+  constructor(private userService: UserService) {}
+
+  ngOnInit() {
+    this.userService.getRoles().subscribe({
+      next: (res) => {
+        this.roles = res.roleItems.sort((a, b) => a.orderId - b.orderId);
+      },
+      error: () => {
+        this.errorMsg = 'Could not load roles. Is the API running?';
+      },
+    });
+  }
+
   nextStep() {
-    if (!this.form.fullName || !this.form.email || !this.form.company) {
+    if (!this.form.fullName || !this.form.email || !this.form.company || !this.form.roleId) {
       this.errorMsg = 'Please fill in all fields.';
       return;
     }
@@ -64,11 +71,28 @@ export class Signup {
       this.errorMsg = 'Password must be at least 8 characters.';
       return;
     }
+
     this.isLoading = true;
-    setTimeout(() => {
-      this.isLoading = false;
-      this.successMsg = '🎉 Account created! Welcome to UC — Your Copilot.';
-    }, 1500);
+    this.userService.signUp({
+      fullName: this.form.fullName,
+      email: this.form.email,
+      company: this.form.company,
+      password: this.form.password,
+      roleId: this.form.roleId,
+    }).subscribe({
+      next: (res) => {
+        this.isLoading = false;
+        if (res.isNotValid) {
+          this.errorMsg = res.message;
+          return;
+        }
+        this.successMsg = '🎉 Account created! Welcome to UC — Your Copilot.';
+      },
+      error: (err: HttpErrorResponse) => {
+        this.isLoading = false;
+        this.errorMsg = err.error?.message ?? 'Sign up failed. Please try again.';
+      },
+    });
   }
 
   getPasswordStrength(): { label: string; color: string; width: string } {

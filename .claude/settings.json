@@ -9,7 +9,9 @@
       "Bash(sqlcmd -S \"\\(localdb\\)\\\\MSSQLLocalDB\" -E -Q \"SELECT name FROM sys.databases\")",
       "Bash(sqlcmd -S \"\\(localdb\\)\\\\MSSQLLocalDB\" -E -d AI_HR -Q \"SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES\")",
       "Bash(sqlcmd -S \"\\(localdb\\)\\\\MSSQLLocalDB\" -E -d AI_INS -Q \"SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES\")",
-      "Bash(sqlcmd -S \"\\(localdb\\)\\\\MSSQLLocalDB\" -E -Q \"SELECT name FROM sys.databases WHERE name = 'AI_DEV_DASHBOARD'\")"
+      "Bash(sqlcmd -S \"\\(localdb\\)\\\\MSSQLLocalDB\" -E -Q \"SELECT name FROM sys.databases WHERE name = 'AI_DEV_DASHBOARD'\")",
+      "Bash(curl -s -o /dev/null -w \"HTTP:%{http_code}\\\\n\" http://localhost:5008/api/users/roles)",
+      "Bash(curl -sk -o /dev/null -w \"HTTP:%{http_code}\\\\n\" https://localhost:7213/api/users/roles)"
     ]
   }
 }

@@ -84,10 +84,10 @@
             <label>Your Role</label>
             <div class="input-wrap select-wrap">
               <span class="input-icon">💼</span>
-              <select [(ngModel)]="form.role" name="role">
-                <option value="" disabled selected>Select your role</option>
-                @for (role of roles; track role) {
-                  <option [value]="role">{{ role }}</option>
+              <select [(ngModel)]="form.roleId" name="roleId">
+                <option [value]="0" disabled selected>Select your role</option>
+                @for (role of roles; track role.roleId) {
+                  <option [value]="role.roleId">{{ role.roleName }}</option>
                 }
               </select>
             </div>
