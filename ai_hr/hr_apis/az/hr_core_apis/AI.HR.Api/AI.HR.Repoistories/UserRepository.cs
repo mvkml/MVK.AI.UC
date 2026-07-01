@@ -18,6 +18,13 @@ public class UserRepository : IUserRepository
         _context = context;
     }
 
+    /// <summary>Returns the user with the given Email, or null if not found.</summary>
+    public async Task<UserItem?> GetByEmail(string email)
+    {
+        var entity = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+        return entity is null ? null : ToModel(entity);
+    }
+
     /// <summary>Inserts a new user and returns the persisted UserItem.</summary>
     public async Task<UserItem> Create(UserItem userItem)
     {

@@ -48,4 +48,28 @@ public class UserValidationService : IUserValidationService
         usersModel.Message = "Validation passed.";
         return usersModel;
     }
+
+    /// <summary>Validates LoginModel.LoginRequest, setting IsNotValid/Message on the model.</summary>
+    public LoginModel ValidateLogin(LoginModel loginModel)
+    {
+        var request = loginModel.LoginRequest;
+
+        if (string.IsNullOrWhiteSpace(request.Email) || !EmailPattern.IsMatch(request.Email))
+        {
+            loginModel.IsNotValid = true;
+            loginModel.Message = "A valid Email is required.";
+            return loginModel;
+        }
+
+        if (string.IsNullOrWhiteSpace(request.Password))
+        {
+            loginModel.IsNotValid = true;
+            loginModel.Message = "Password is required.";
+            return loginModel;
+        }
+
+        loginModel.IsNotValid = false;
+        loginModel.Message = "Validation passed.";
+        return loginModel;
+    }
 }

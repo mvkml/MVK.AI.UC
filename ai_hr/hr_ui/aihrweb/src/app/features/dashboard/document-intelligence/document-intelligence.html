@@ -1,0 +1,160 @@
+<div class="ocr-page">
+
+  <!-- Main Area -->
+  <div class="ocr-body">
+
+    <!-- Left: Doc type + drop zone + file list -->
+    <div class="ocr-main">
+
+      <!-- Document Type Selector -->
+      <div class="doc-type-bar">
+        <span class="bar-label">📂 Document Type:</span>
+        <div class="type-chips">
+          @for (key of docTypeKeys; track key) {
+            <button class="chip" [class.active]="selectedDocType === key"
+                    (click)="selectedDocType = key">
+              {{ docTypes[key].icon }} {{ docTypes[key].label }}
+            </button>
+          }
+        </div>
+      </div>
+
+      <!-- Batch Action Bar -->
+      <div class="batch-action-bar">
+        <span class="batch-msg" [class.warn]="!!batchWarning">
+          {{ batchWarning || (extractedCount > 0 ? '✅ ' + extractedCount + ' document(s) ready for review' : 'Upload a document to extract & submit its data') }}
+        </span>
+        <div class="batch-actions">
+          <button class="btn-cancel" (click)="cancelAll()">Cancel All</button>
+          <button class="btn-submit" (click)="submitAll()">Submit All</button>
+        </div>
+      </div>
+
+      <!-- Drop Zone -->
+      <div class="drop-zone" [class.dragging]="isDragging"
+           (dragover)="onDragOver($event)"
+           (dragleave)="onDragLeave()"
+           (drop)="onDrop($event)">
+        <div class="drop-inner">
+          <div class="drop-icon">{{ isDragging ? '📂' : '🔍' }}</div>
+          <h3>{{ isDragging ? 'Release to scan' : 'Drag & drop ' + docTypes[selectedDocType].label + ' here' }}</h3>
+          <p>PDF, PNG, JPG — AI will extract fields automatically</p>
+          <button class="btn-browse" (click)="openFileDialog()">Browse Files</button>
+          <input #fileInput type="file" multiple
+                 accept=".pdf,.png,.jpg,.jpeg"
+                 (change)="onFileSelect($event)" hidden />
+        </div>
+      </div>
+
+      <!-- File List -->
+      @if (files.length > 0) {
+        <div class="file-list">
+          <div class="file-list-header">
+            <span>File</span>
+            <span>Doc Type</span>
+            <span>Size</span>
+            <span>Status</span>
+            <span></span>
+          </div>
+
+          @for (file of files; track file.id) {
+            <div class="file-group">
+              <div class="file-row" [class.extracted]="file.status === 'extracted'"
+                                    [class.submitted]="file.status === 'submitted'"
+                                    [class.error]="file.status === 'error'"
+                                    (click)="file.status === 'extracted' && toggleExpand(file.id)">
+
+                <div class="file-name">
+                  <span class="file-ext-icon">{{ getExtIcon(file.ext) }}</span>
+                  <div class="file-meta">
+                    <span class="fname">{{ file.name }}</span>
+                    @if (file.status === 'processing') {
+                      <div class="progress-bar">
+                        <div class="progress-fill" [style.width.%]="file.progress"></div>
+                      </div>
+                    }
+                  </div>
+                </div>
+
+                <span class="doc-type-tag">{{ docTypes[file.docType].icon }} {{ file.docType }}</span>
+                <span class="file-size">{{ file.size }}</span>
+                <span class="status-badge" [class]="file.status">{{ getStatusBadge(file.status) }}</span>
+
+                <div class="file-actions">
+                  @if (file.status === 'extracted') {
+                    <span class="expand-caret" [class.open]="expandedFileId === file.id">▶</span>
+                  }
+                  @if (file.status === 'error') {
+                    <button class="btn-icon retry" (click)="retryFile(file); $event.stopPropagation()" title="Retry">🔄</button>
+                  }
+                  <button class="btn-icon remove" (click)="removeFile(file.id); $event.stopPropagation()" title="Remove">✕</button>
+                </div>
+              </div>
+
+              <!-- Extracted Fields Panel -->
+              @if (file.status === 'extracted' && expandedFileId === file.id) {
+                <div class="extracted-panel">
+                  @for (field of file.fields; track field.label) {
+                    <div class="field-row">
+                      <span class="field-label">{{ field.label }}</span>
+                      <span class="field-value">{{ field.value }}</span>
+                    </div>
+                  }
+                  <div class="panel-actions" (click)="$event.stopPropagation()">
+                    <button class="btn-cancel" (click)="cancelFields(file.id)">Cancel</button>
+                    <button class="btn-submit" (click)="submitFields(file)">Submit</button>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      }
+
+      @if (files.length === 0) {
+        <div class="empty-state">
+          <span>🔍</span>
+          <p>No documents scanned yet. Pick a document type above, then drag & drop or browse.</p>
+        </div>
+      }
+
+    </div>
+
+    <!-- Right: Info panel -->
+    <div class="tips-panel">
+      <h4>📋 {{ docTypes[selectedDocType].label }} Fields</h4>
+      <ul>
+        @for (f of docTypes[selectedDocType].fields; track f) {
+          <li>{{ f }}</li>
+        }
+      </ul>
+
+      <div class="tips-divider"></div>
+
+      <h4>🤖 How It Works</h4>
+      <div class="ai-steps">
+        <div class="ai-step"><span class="step-num">1</span> Upload the document image/PDF</div>
+        <div class="ai-step"><span class="step-num">2</span> Azure Document Intelligence scans it</div>
+        <div class="ai-step"><span class="step-num">3</span> Fields are auto-extracted</div>
+        <div class="ai-step"><span class="step-num">4</span> Review & confirm extracted data</div>
+      </div>
+
+      <div class="tips-divider"></div>
+
+      <h4>📊 Stats</h4>
+      <div class="stats-col">
+        @for (s of stats; track s.label) {
+          <div class="stat-card">
+            <span class="stat-icon">{{ s.icon }}</span>
+            <div class="stat-info">
+              <span class="stat-val" [style.color]="s.color">{{ s.value }}</span>
+              <span class="stat-label">{{ s.label }}</span>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+  </div>
+
+</div>

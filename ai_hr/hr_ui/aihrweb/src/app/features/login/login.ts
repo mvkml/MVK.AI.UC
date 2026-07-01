@@ -1,13 +1,8 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
-
-// ── Mock credentials ──────────────────────────────────────────────
-const MOCK_USERS = [
-  { email: 'admin@uc.ai',   password: 'Admin@123',  name: 'Vishnu Kiran' },
-  { email: 'hr@uc.ai',      password: 'HR@1234',    name: 'HR Manager'   },
-  { email: 'demo@uc.ai',    password: 'Demo@123',   name: 'Demo User'    },
-];
+import { HttpErrorResponse } from '@angular/common/http';
+import { UserService } from '../../shared/services/user';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +20,7 @@ export class Login {
   isLoading    = false;
   errorMsg     = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private userService: UserService, private cdr: ChangeDetectorRef) {}
 
   togglePassword() {
     this.showPassword = !this.showPassword;
@@ -40,19 +35,29 @@ export class Login {
 
     this.isLoading = true;
 
-    setTimeout(() => {
-      this.isLoading = false;
-
-      const user = MOCK_USERS.find(
-        u => u.email === this.form.email.trim().toLowerCase()
-          && u.password === this.form.password
-      );
-
-      if (user) {
+    this.userService.login({
+      email: this.form.email.trim().toLowerCase(),
+      password: this.form.password,
+    }).subscribe({
+      next: (res) => {
+        this.isLoading = false;
+        if (res.isNotValid) {
+          this.errorMsg = res.message;
+          this.cdr.markForCheck();
+          return;
+        }
+        localStorage.setItem('uc_token', res.token);
+        localStorage.setItem('uc_user', JSON.stringify({
+          userId: res.userId, fullName: res.fullName, email: res.email,
+          company: res.company, roleId: res.roleId,
+        }));
         this.router.navigate(['/dashboard']);
-      } else {
-        this.errorMsg = 'Invalid credentials. Please try again.';
-      }
-    }, 1200);
+      },
+      error: (err: HttpErrorResponse) => {
+        this.isLoading = false;
+        this.errorMsg = err.error?.message ?? 'Invalid credentials. Please try again.';
+        this.cdr.markForCheck();
+      },
+    });
   }
 }

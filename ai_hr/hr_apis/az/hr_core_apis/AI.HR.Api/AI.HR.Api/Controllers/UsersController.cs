@@ -44,6 +44,35 @@ public class UsersController : ControllerBase
         return Ok(usersModel.UserResponse);
     }
 
+    /// <summary>Logs in a user.</summary>
+    [HttpPost("login")]
+    public async Task<ActionResult<LoginResponse>> Login([FromBody] LoginRequest loginRequest)
+    {
+        var loginModel = new LoginModel { LoginRequest = loginRequest };
+
+        loginModel = _userValidationService.ValidateLogin(loginModel);
+        if (loginModel.IsNotValid)
+        {
+            return BadRequest(new LoginResponse
+            {
+                IsNotValid = true,
+                Message = loginModel.Message,
+            });
+        }
+
+        loginModel = await _userBL.Login(loginModel);
+        if (loginModel.IsNotValid)
+        {
+            return Unauthorized(new LoginResponse
+            {
+                IsNotValid = true,
+                Message = loginModel.Message,
+            });
+        }
+
+        return Ok(loginModel.LoginResponse);
+    }
+
     /// <summary>Gets all roles (e.g. to populate the Sign Up role dropdown).</summary>
     [HttpGet("roles")]
     public async Task<ActionResult<RolesModel>> GetRoles()

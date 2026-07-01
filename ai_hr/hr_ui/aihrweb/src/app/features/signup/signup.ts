@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -30,15 +30,17 @@ export class Signup implements OnInit {
 
   step = 1; // 2-step form
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.userService.getRoles().subscribe({
       next: (res) => {
         this.roles = res.roleItems.sort((a, b) => a.orderId - b.orderId);
+        this.cdr.markForCheck();
       },
       error: () => {
         this.errorMsg = 'Could not load roles. Is the API running?';
+        this.cdr.markForCheck();
       },
     });
   }
@@ -84,13 +86,16 @@ export class Signup implements OnInit {
         this.isLoading = false;
         if (res.isNotValid) {
           this.errorMsg = res.message;
+          this.cdr.markForCheck();
           return;
         }
         this.successMsg = '🎉 Account created! Welcome to UC — Your Copilot.';
+        this.cdr.markForCheck();
       },
       error: (err: HttpErrorResponse) => {
         this.isLoading = false;
         this.errorMsg = err.error?.message ?? 'Sign up failed. Please try again.';
+        this.cdr.markForCheck();
       },
     });
   }

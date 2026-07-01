@@ -10,6 +10,7 @@ import { Dashboard }  from './features/dashboard/dashboard';
 import { Home }       from './features/dashboard/home/home';
 import { Upload }     from './features/dashboard/upload/upload';
 import { Employees }  from './features/dashboard/employees/employees';
+import { DocumentIntelligence } from './features/dashboard/document-intelligence/document-intelligence';
 
 export const routes: Routes = [
   { path: '',          component: Landing    },
@@ -24,8 +25,9 @@ export const routes: Routes = [
     component: Dashboard,
     children: [
       { path: '',       component: Home,   data: { title: 'Dashboard'        } },
-      { path: 'upload',    component: Upload,    data: { title: 'Upload Documents' } },
-      { path: 'employees', component: Employees, data: { title: 'Employees'        } },
+      { path: 'upload',                 component: Upload,               data: { title: 'Upload Documents'   } },
+      { path: 'employees',              component: Employees,            data: { title: 'Employees'          } },
+      { path: 'document-intelligence',  component: DocumentIntelligence, data: { title: 'Document Intelligence — OCR Extraction' } },
     ]
   },
   { path: '**', redirectTo: '' }

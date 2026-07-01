@@ -36,6 +36,22 @@ export interface UserResponse {
   message: string;
 }
 
+export interface LoginRequest {
+  email: string;
+  password: string;
+}
+
+export interface LoginResponse {
+  userId: number;
+  fullName: string;
+  email: string;
+  company: string;
+  roleId: number;
+  token: string;
+  isNotValid: boolean;
+  message: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class UserService {
   constructor(private http: HttpClient) {}
@@ -46,5 +62,9 @@ export class UserService {
 
   signUp(request: SignUpRequest): Observable<UserResponse> {
     return this.http.post<UserResponse>(`${API_BASE}/signup`, request);
+  }
+
+  login(request: LoginRequest): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${API_BASE}/login`, request);
   }
 }

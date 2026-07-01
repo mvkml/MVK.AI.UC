@@ -6,7 +6,7 @@ Tracks which REST API endpoint each web UI page uses, and the base URL per envir
 
 | Environment | Base URL | Status |
 |---|---|---|
-| Dev | `http://localhost:5298` | **Active** — current working environment |
+| Dev | `http://localhost:5008` | **Active** — current working environment. Fixed via `AI.HR.Api/Properties/launchSettings.json` (`http` profile `applicationUrl`) — do not run with an ad-hoc `--urls` override. |
 | QA | _TBD_ | Not provisioned yet |
 | UAT | _TBD_ | Not provisioned yet |
 | Prod | _TBD_ | Not provisioned yet |
@@ -19,14 +19,17 @@ Once QA/UAT/Prod base URLs are known, populate this table and mirror them into t
 |---|---|---|---|---|
 | `api/users/signup` | POST | Sign Up | `hr_ui/aihrweb/src/app/features/signup/signup.ts` | ❌ No — `onSubmit()` currently uses a mock `setTimeout`, not an HTTP call |
 | `api/users/roles` | GET | Sign Up (role dropdown) | `hr_ui/aihrweb/src/app/features/signup/signup.ts` | ❌ No — `roles` is a hardcoded string array, not fetched from the API |
-| _Login endpoint_ | _TBD_ | Login | `hr_ui/aihrweb/src/app/features/login/login.ts` | ❌ Not yet implemented on the API side |
+| `api/users/login` | POST | Login | `hr_ui/aihrweb/src/app/features/login/login.ts` | ❌ No — endpoint exists, returns a JWT `token` on success, tested via curl, but `login.ts` not yet wired to call it or store the token |
+
+## Auth
+`POST api/users/login` returns a signed JWT in `LoginResponse.Token` (60 min expiry). No endpoint currently requires it (`[Authorize]` not used yet). Once protected endpoints exist, the Angular app should store this token (e.g. in memory or a secure storage mechanism — not yet decided) and send it as `Authorization: Bearer {token}` on subsequent requests.
 
 ## Notes
-- Backend source of truth for endpoint behavior: `hr_agile/architecture/decisions/TDD_users_signup/002_TDD_users_signup.md`.
+- Backend source of truth for endpoint behavior: `hr_agile/architecture/decisions/TDD_users_signup/002_TDD_users_signup.md` (Sign Up), `004_TDD_users_login.md` (Login + JWT).
 - This file should be updated whenever: a new endpoint is added, a UI page is wired to call a real endpoint instead of a mock, or a new environment's base URL becomes available.
 
 ## Pending / Next Steps
 - Wire `signup.ts` to call `POST api/users/signup` and `GET api/users/roles` instead of mock data.
-- Define a Login endpoint design (TDD) before building it.
+- Wire `login.ts` to call `POST api/users/login` instead of mock data.
 - Provision QA/UAT/Prod environments and populate their base URLs here.
 - Create Angular `environment.ts` files once more than one environment exists.

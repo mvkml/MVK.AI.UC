@@ -7,6 +7,9 @@ namespace AI.HR.Repoistories;
 /// </summary>
 public interface IUserRepository
 {
+    /// <summary>Returns the user with the given Email, or null if not found.</summary>
+    Task<UserItem?> GetByEmail(string email);
+
     /// <summary>Inserts a new user and returns the persisted UserItem.</summary>
     Task<UserItem> Create(UserItem userItem);
 

@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "df_id_extractor": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7275",
+      "launchBrowser": false
+    }
+  }
+}

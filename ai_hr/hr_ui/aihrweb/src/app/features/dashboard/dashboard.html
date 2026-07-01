@@ -5,16 +5,18 @@
 
     <!-- Logo + Toggle -->
     <div class="sidebar-logo">
-      <svg viewBox="0 0 40 40" fill="none" width="30" height="30" style="flex-shrink:0">
-        <rect x="5"  y="5"  width="13" height="13" rx="2" fill="#7C6FFF"/>
-        <rect x="22" y="5"  width="13" height="13" rx="2" fill="#7C6FFF" opacity="0.6"/>
-        <rect x="5"  y="22" width="13" height="13" rx="2" fill="#7C6FFF" opacity="0.6"/>
-        <rect x="22" y="22" width="13" height="13" rx="2" fill="#7C6FFF"/>
-      </svg>
-      <div class="logo-text">
-        <span class="logo-name">UC</span>
-        <span class="logo-sub">Your Copilot</span>
-      </div>
+      <a class="logo-link" routerLink="/dashboard" title="Go to Dashboard">
+        <svg viewBox="0 0 40 40" fill="none" width="30" height="30" style="flex-shrink:0">
+          <rect x="5"  y="5"  width="13" height="13" rx="2" fill="#7C6FFF"/>
+          <rect x="22" y="5"  width="13" height="13" rx="2" fill="#7C6FFF" opacity="0.6"/>
+          <rect x="5"  y="22" width="13" height="13" rx="2" fill="#7C6FFF" opacity="0.6"/>
+          <rect x="22" y="22" width="13" height="13" rx="2" fill="#7C6FFF"/>
+        </svg>
+        <div class="logo-text">
+          <span class="logo-name">UC</span>
+          <span class="logo-sub">Your Copilot</span>
+        </div>
+      </a>
       <button class="btn-toggle" (click)="toggleSidebar()"
               [title]="sidebarOpen ? 'Collapse' : 'Expand'">
         {{ sidebarOpen ? '◀' : '▶' }}

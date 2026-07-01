@@ -11,4 +11,8 @@
     <ProjectReference Include="..\AI.HR.Repoistories\AI.HR.Repoistories.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.19.1" />
+  </ItemGroup>
+
 </Project>

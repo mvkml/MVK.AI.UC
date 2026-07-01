@@ -19,6 +19,7 @@ export class Dashboard implements OnInit {
     { icon: '💰', label: 'Payroll',     route: '/dashboard/payroll'    },
     { icon: '📊', label: 'Reports',     route: '/dashboard/reports'    },
     { icon: '📄', label: 'Documents',   route: '/dashboard/upload'     },
+    { icon: '🔎', label: 'Document Intelligence', route: '/dashboard/document-intelligence' },
     { icon: '🤖', label: 'AI Agents',   route: '/dashboard/agents'     },
   ];
 
@@ -47,6 +48,7 @@ export class Dashboard implements OnInit {
 
   private updateTitle(url: string) {
     if      (url.includes('/upload'))      this.pageTitle = 'Upload Documents';
+    else if (url.includes('/document-intelligence')) this.pageTitle = 'Document Intelligence — OCR Extraction';
     else if (url.includes('/employees'))   this.pageTitle = 'Employees';
     else if (url.includes('/recruitment')) this.pageTitle = 'Recruitment';
     else if (url.includes('/payroll'))     this.pageTitle = 'Payroll';

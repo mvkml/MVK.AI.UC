@@ -8,7 +8,7 @@ const apiDetails = {
         heading: 'Controllers',
         items: [
           { name: 'WeatherForecastController', path: 'Controllers/WeatherForecastController.cs', real: false },
-          { name: 'UsersController — POST api/users/signup, GET api/users/roles', path: 'Controllers/UsersController.cs', real: true },
+          { name: 'UsersController — POST api/users/signup, POST api/users/login, GET api/users/roles', path: 'Controllers/UsersController.cs', real: true },
         ],
       },
       {
@@ -19,6 +19,8 @@ const apiDetails = {
           { name: 'DI: IUserRepository, IRoleRepository, IUserBL, IUserValidationService (Scoped)', path: 'Program.cs', real: true },
           { name: 'Swagger/SwaggerUI (Swashbuckle.AspNetCore)', path: 'Program.cs', real: true },
           { name: 'CORS policy "AllowAngularDev" → http://localhost:4201', path: 'Program.cs', real: true },
+          { name: 'JWT Bearer auth — AddAuthentication/AddJwtBearer, UseAuthentication (no [Authorize] endpoints yet)', path: 'Program.cs', real: true },
+          { name: 'Jwt:Issuer/Audience/SecretKey/ExpiryMinutes config', path: 'appsettings.json', real: true },
         ],
       },
     ],
@@ -31,13 +33,17 @@ const apiDetails = {
         heading: 'Users',
         items: [
           { name: 'IUserBL / UserBL.SignUp — UserRequest → UserItem → Repository.Upsert → UserResponse', path: 'UserBL.cs', real: true },
-          { name: 'IUserValidationService / UserValidationService.Validate', path: 'UserValidationService.cs', real: true },
+          { name: 'IUserBL / UserBL.Login — GetByEmail → PasswordHasher.Verify → LoginResponse', path: 'UserBL.cs', real: true },
+          { name: 'IUserValidationService / UserValidationService.Validate (Sign Up)', path: 'UserValidationService.cs', real: true },
+          { name: 'IUserValidationService / UserValidationService.ValidateLogin', path: 'UserValidationService.cs', real: true },
         ],
       },
       {
         heading: 'Security',
         items: [
-          { name: 'PasswordHasher.Hash — used by UserBL before persisting', path: 'Security/PasswordHasher.cs', real: true },
+          { name: 'PasswordHasher.Hash / Verify — PBKDF2 (HMAC-SHA256)', path: 'Security/PasswordHasher.cs', real: true },
+          { name: 'ITokenService / TokenService.GenerateToken — signed JWT (HMAC-SHA256), called by UserBL.Login', path: 'Security/TokenService.cs', real: true },
+          { name: 'JwtSettings (Issuer/Audience/SecretKey/ExpiryMinutes), bound from config', path: 'Security/JwtSettings.cs', real: true },
         ],
       },
     ],
@@ -89,6 +95,9 @@ const apiDetails = {
           { name: 'UserRequest (Sign Up payload, incl. RoleId)', path: 'UserRequest.cs', real: true },
           { name: 'UserResponse (Sign Up response)', path: 'UserResponse.cs', real: true },
           { name: 'UsersModel (UserRequest / UserItem / UserItems / UserResponse)', path: 'UsersModel.cs', real: true },
+          { name: 'LoginRequest (Email, Password)', path: 'LoginRequest.cs', real: true },
+          { name: 'LoginResponse (Login response, incl. Token)', path: 'LoginResponse.cs', real: true },
+          { name: 'LoginModel (LoginRequest / LoginResponse)', path: 'LoginModel.cs', real: true },
         ],
       },
       {
@@ -107,7 +116,7 @@ const apiDetails = {
       {
         heading: 'Users',
         items: [
-          { name: 'IUserRepository / UserRepository — Create, Update, Delete, Upsert', path: 'UserRepository.cs', real: true },
+          { name: 'IUserRepository / UserRepository — GetByEmail, Create, Update, Delete, Upsert', path: 'UserRepository.cs', real: true },
         ],
       },
       {
